@@ -1,0 +1,64 @@
+{
+  "frames": [
+    {
+      "filename": "frame01.svg",
+      "name": "Frame01",
+      "path": "frames/frame01.svg"
+    },
+    {
+      "filename": "frame02.svg",
+      "name": "Frame02",
+      "path": "frames/frame02.svg"
+    },
+    {
+      "filename": "frame03.svg",
+      "name": "Frame03",
+      "path": "frames/frame03.svg"
+    },
+    {
+      "filename": "frame04.svg",
+      "name": "Frame04",
+      "path": "frames/frame04.svg"
+    },
+    {
+      "filename": "frame05.svg",
+      "name": "Frame05",
+      "path": "frames/frame05.svg"
+    },
+    {
+      "filename": "frame06.svg",
+      "name": "Frame06",
+      "path": "frames/frame06.svg"
+    },
+    {
+      "filename": "frame07.svg",
+      "name": "Frame07",
+      "path": "frames/frame07.svg"
+    },
+    {
+      "filename": "frame08.svg",
+      "name": "Frame08",
+      "path": "frames/frame08.svg"
+    },
+    {
+      "filename": "frame09.svg",
+      "name": "Frame09",
+      "path": "frames/frame09.svg"
+    },
+    {
+      "filename": "frame10.svg",
+      "name": "Frame10",
+      "path": "frames/frame10.svg"
+    },
+    {
+      "filename": "frame11.svg",
+      "name": "Frame11",
+      "path": "frames/frame11.svg"
+    },
+    {
+      "filename": "frame12.svg",
+      "name": "Frame12",
+      "path": "frames/frame12.svg"
+    }
+  ]
+}
