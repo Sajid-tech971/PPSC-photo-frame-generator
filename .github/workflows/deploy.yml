@@ -1,0 +1,67 @@
+
+name: Deploy Photo Frame Website to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate frame manifest
+        run: |
+          python - <<'PY'
+          import json
+          import pathlib
+          import re
+
+          root = pathlib.Path("frames")
+          allowed = {".png", ".svg", ".jpg", ".jpeg", ".webp"}
+          frames = []
+
+          if root.exists():
+              for file in sorted(root.iterdir()):
+                  if file.is_file() and file.suffix.lower() in allowed:
+                      name = re.sub(r"\.[^.]+$", "", file.name)
+                      name = name.replace("_", " ").replace("-", " ").title()
+                      frames.append({
+                          "filename": file.name,
+                          "name": name,
+                          "path": "frames/" + file.name
+                      })
+
+          pathlib.Path("frames.json").write_text(
+              json.dumps({"frames": frames}, ensure_ascii=False, indent=2),
+              encoding="utf-8"
+          )
+
+          print(f"Found {len(frames)} frame(s)")
+          PY
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy website
+        uses: actions/deploy-pages@v4
