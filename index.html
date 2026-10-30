@@ -160,7 +160,7 @@
             <button onclick="closeDevModal()" class="absolute top-4 right-4 w-10 h-10 bg-slate-800 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition cursor-pointer">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <div class="relative w-32 h-32 mx-auto mb-4 rounded-full p-1 bg-gradient-to-tr from-purple-500 via-pink-500 to-blue-500 shadow-xl cursor-pointer" onclick="openImagePreview('images/developer.jpg', 'MD Sadid Hasan Sajid')">
+            <div class="relative w-32 h-32 mx-auto mb-4 rounded-full p-1 bg-gradient-to-tr from-purple-500 via-pink-500 to-blue-500 shadow-xl cursor-pointer" onclick="openDevImagePreview()">
                 <!-- Developer Photo loaded from images folder -->
                 <img src="images/developer.jpg" alt="MD Sadid Hasan Sajid" class="w-full h-full object-cover rounded-full bg-slate-900" onerror="this.src='https://via.placeholder.com/150/0f172a/38bdf8?text=SAJID'">
             </div>
@@ -183,9 +183,9 @@
         </div>
     </div>
 
-    <!-- Image Zoom Preview Modal (For Teachers & Developer Photos) -->
+    <!-- Dynamic Image Zoom Preview Modal (With Teacher Links) -->
     <div id="imagePreviewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/85 backdrop-blur-md p-4" onclick="closeImagePreview()">
-        <div class="relative max-w-sm w-full glass-panel p-4 rounded-3xl border border-blue-500/40 text-center shadow-2xl" onclick="event.stopPropagation()">
+        <div class="relative max-w-sm w-full glass-panel p-6 rounded-3xl border border-blue-500/40 text-center shadow-2xl" onclick="event.stopPropagation()">
             <button onclick="closeImagePreview()" class="absolute -top-3 -right-3 w-9 h-9 bg-slate-800 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition cursor-pointer shadow-lg">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -193,10 +193,12 @@
                 <img id="previewImgSrc" src="" alt="Zoomed Preview" class="w-full h-full object-cover">
             </div>
             <h3 id="previewImgTitle" class="text-base font-bold text-white font-orbitron mt-2"></h3>
+            
+            <!-- Dynamic Social Buttons Container -->
+            <div id="previewSocialContainer" class="flex flex-wrap justify-center gap-2 mt-4"></div>
         </div>
     </div>
 
-    <!-- Run with run_local_server.bat so project frame assets load safely and PNG export works reliably. -->
     <!-- JavaScript Application Logic -->
     <script>
         // Language Dictionary
@@ -257,9 +259,57 @@
         }
 
         // Image Click Popup Preview Functions
-        function openImagePreview(imgSrc, titleText) {
-            document.getElementById('previewImgSrc').src = imgSrc;
-            document.getElementById('previewImgTitle').innerText = titleText;
+        function openTeacherPreview(index) {
+            const t = teachers[index];
+            if (!t) return;
+
+            document.getElementById('previewImgSrc').src = t.img;
+            document.getElementById('previewImgTitle').innerText = t.name + ' - ' + t.role[currentLang];
+
+            const socialContainer = document.getElementById('previewSocialContainer');
+            socialContainer.innerHTML = '';
+
+            // Render Facebook Button if link exists
+            if (t.facebook && t.facebook.trim() !== "") {
+                const fbBtn = document.createElement('a');
+                fbBtn.href = t.facebook;
+                fbBtn.target = '_blank';
+                fbBtn.className = 'px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
+                fbBtn.innerHTML = '<i class="fa-brands fa-facebook"></i> Facebook';
+                socialContainer.appendChild(fbBtn);
+            }
+
+            // Render WhatsApp Button if link exists
+            if (t.whatsapp && t.whatsapp.trim() !== "") {
+                const waBtn = document.createElement('a');
+                waBtn.href = t.whatsapp.startsWith('http') ? t.whatsapp : `https://wa.me/${t.whatsapp}`;
+                waBtn.target = '_blank';
+                waBtn.className = 'px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
+                waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i> WhatsApp';
+                socialContainer.appendChild(waBtn);
+            }
+
+            // Render Email Button if link exists
+            if (t.email && t.email.trim() !== "") {
+                const mailBtn = document.createElement('a');
+                mailBtn.href = t.email.startsWith('mailto:') ? t.email : `mailto:${t.email}`;
+                mailBtn.className = 'px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
+                mailBtn.innerHTML = '<i class="fa-solid fa-envelope"></i> Email';
+                socialContainer.appendChild(mailBtn);
+            }
+
+            document.getElementById('imagePreviewModal').style.display = 'flex';
+        }
+
+        function openDevImagePreview() {
+            document.getElementById('previewImgSrc').src = 'images/developer.jpg';
+            document.getElementById('previewImgTitle').innerText = 'MD Sadid Hasan Sajid';
+            const socialContainer = document.getElementById('previewSocialContainer');
+            socialContainer.innerHTML = `
+                <a href="https://www.facebook.com/PrinceSajidOfficial136" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                <a href="https://wa.me/+8801732161779" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                <a href="mailto:x@sajidx.cyou" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-solid fa-envelope"></i> Email</a>
+            `;
             document.getElementById('imagePreviewModal').style.display = 'flex';
         }
 
@@ -267,8 +317,7 @@
             document.getElementById('imagePreviewModal').style.display = 'none';
         }
 
-        
-// Built-in fallback overlays keep the app usable if optional PNG files are absent.
+        // Built-in fallback overlays keep the app usable if optional PNG files are absent.
         function makeFallbackFrame(index) {
             const themes = [
                 { a: '#38bdf8', b: '#fbbf24', title: 'PABNA PILOT SCHOOL & COLLEGE', sub: 'OFFICIAL PHOTO FRAME' },
@@ -304,8 +353,7 @@
             return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
         }
 
-        // Project-owned frame catalogue. Users only choose from these approved assets.
-        // To add a frame, place its image in /frames and add one entry here.
+        // Project-owned frame catalogue.
         let frames = [
             { id: 'f01', name: 'School Official', path: 'frames/frame01.svg', fallback: makeFallbackFrame(0) },
             { id: 'f02', name: 'Science & Technology', path: 'frames/frame02.svg', fallback: makeFallbackFrame(1) },
@@ -321,8 +369,6 @@
             { id: 'f12', name: 'Premium Dark', path: 'frames/frame12.svg', fallback: makeFallbackFrame(11) }
         ];
 
-
-        // Dynamic project frame library. The local server scans /frames automatically.
         function friendlyFrameName(filename) {
             return filename.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ')
                 .replace(/\s+/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
@@ -330,8 +376,6 @@
 
         async function refreshProjectFrameLibrary(silent = false) {
             try {
-                // GitHub Pages/static hosting: frames.json is generated during deployment.
-                // Local Python server: /api/frames scans the folder live.
                 let response = await fetch('./frames.json', { cache: 'no-store' });
                 let data = null;
                 if (response.ok) {
@@ -370,19 +414,78 @@
 
         let selectedFrameIndex = 0;
 
-        // 2. Teachers Data (20+ Faculty Members - Loaded from images/ folder)
+        /* 
+         * TEACHERS DATA (শিক্ষকদের তথ্য ও সোশ্যাল বাটন লিঙ্ক)
+         * যে স্যারের যে লিঙ্ক নেই, সেটা ফাঁকা/খালি ("") রাখুন। তাহলে সেই বাটনটা পপআপে দেখাবে না।
+        */
         const teachers = [
-            { name: "RASHED", role: { en: "Principal", bn: "প্রধান শিক্ষক" }, img: "images/rashed.jpg" },
-            { name: "Amit", role: { en: "Higher math Teacher", bn: "উচ্চতর গণিতের শিক্ষক" }, img: "images/amit.jpg" },
-            { name: "Rifat", role: { en: "Math Teacher", bn: "গণিত শিক্ষক" }, img: "images/rifat.jpg" },
-            { name: "Shahajalal", role: { en: "Islam Teacher", bn: "ইসলাম শিক্ষা শিক্ষক" }, img: "images/shahajalal.jpg" },
-            { name: "KM Tawhid", role: { en: "Physics Teacher", bn: "পদার্থবিজ্ঞানের শিক্ষক" }, img: "images/KM Tawhid.jpg" },
-            { name: "Arif", role: { en: "English Teacher", bn: "ইংরেজি শিক্ষক" }, img: "images/arif.jpg" },
-            { name: "Shawon", role: { en: "ICT Teacher", bn: "আইসিটি শিক্ষক" }, img: "images/shawon.jpg" },
-            { name: "Saidul", role: { en: "History Teacher", bn: "ইতিহাস শিক্ষক" }, img: "images/saidul.jpg" },
+            { 
+                name: "RASHED", 
+                role: { en: "Principal", bn: "প্রধান শিক্ষক" }, 
+                img: "images/rashed.jpg",
+                facebook: "https://www.facebook.com/rashed.pabna87",
+                whatsapp: "+8801718780699",
+                email: ""
+            },
+            { 
+                name: "Amit", 
+                role: { en: "Higher math Teacher", bn: "উচ্চতর গণিতের শিক্ষক" }, 
+                img: "images/amit.jpg",
+                facebook: "https://www.facebook.com/amit.chanda.908945",
+                whatsapp: "@Amit200535",
+                email: ""
+            },
+            { 
+                name: "Rifat", 
+                role: { en: "Math Teacher", bn: "গণিত শিক্ষক" }, 
+                img: "images/rifat.jpg",
+                facebook: "",
+                whatsapp: "",
+                email: ""
+            },
+            { 
+                name: "Shahajalal", 
+                role: { en: "Islam Teacher", bn: "ইসলাম শিক্ষা শিক্ষক" }, 
+                img: "images/shahajalal.jpg",
+                facebook: "",
+                whatsapp: "",
+                email: ""
+            },
+            { 
+                name: "KM Tawhid", 
+                role: { en: "Physics Teacher", bn: "পদার্থবিজ্ঞানের শিক্ষক" }, 
+                img: "images/KM Tawhid.jpg",
+                facebook: "https://www.facebook.com/touhid.n.khan.14019",
+                whatsapp: "+8801521441957",
+                email: ""
+            },
+            { 
+                name: "Arif", 
+                role: { en: "English Teacher", bn: "ইংরেজি শিক্ষক" }, 
+                img: "images/arif.jpg",
+                facebook: "https://www.facebook.com/mdarifhossen01",
+                whatsapp: "+8801775488302",
+                email: ""
+            },
+            { 
+                name: "Shawon", 
+                role: { en: "ICT Teacher", bn: "আইসিটি শিক্ষক" }, 
+                img: "images/shawon.jpg",
+                facebook: "https://www.facebook.com/marzan.shawon?comment_id=Y29tbWVudDoxMjIxOTY1NjQzMjA5Mzk3OTVfMTQzOTk5ODIzODIyMDY2Mg%3D%3D",
+                whatsapp: "",
+                email: ""
+            },
+            { 
+                name: "Saidul", 
+                role: { en: "History Teacher", bn: "ইতিহাস শিক্ষক" }, 
+                img: "images/saidul.jpg",
+                facebook: "",
+                whatsapp: "",
+                email: ""
+            }
         ];
 
-        // Canvas photo-frame engine (coordinates are always in canvas pixels).
+        // Canvas photo-frame engine
         const canvas = document.getElementById('frameCanvas');
         const ctx = canvas.getContext('2d', { alpha: true });
         if (!ctx) throw new Error('Your browser does not support Canvas 2D.');
@@ -393,7 +496,7 @@
         let frameImageLoaded = false;
         let scale = 1;
         let rotation = 0;
-        let imgX = 0, imgY = 0; // top-left of the untransformed photo rectangle
+        let imgX = 0, imgY = 0;
         let baseW = 1080, baseH = 1080;
         let isDragging = false;
         let dragPointer = null;
@@ -433,11 +536,11 @@
         function renderTeachers() {
             const grid = document.getElementById('teachersGrid');
             grid.innerHTML = '';
-            teachers.forEach(t => {
+            teachers.forEach((t, idx) => {
                 const card = document.createElement('div');
                 card.className = 'glass-panel p-4 rounded-2xl text-center shadow-lg border border-slate-800 hover:border-blue-500/50 transition duration-300';
                 card.innerHTML = `
-                    <div onclick="openImagePreview('${t.img}', '${t.name} - ${t.role[currentLang]}')" class="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border-2 border-blue-500/40 shadow-md bg-slate-900 cursor-pointer transform hover:scale-105 transition duration-200" title="Click to view larger image">
+                    <div onclick="openTeacherPreview(${idx})" class="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border-2 border-blue-500/40 shadow-md bg-slate-900 cursor-pointer transform hover:scale-105 transition duration-200" title="Click to view details & contact links">
                         <img src="${t.img}" alt="${t.name}" class="w-full h-full object-cover" onerror="this.style.display='none'">
                     </div>
                     <h4 class="font-bold text-sm text-white font-orbitron">${t.name}</h4>
@@ -474,13 +577,11 @@
                 setStatus(hasUserPhoto ? 'Template loaded. Your photo is ready to adjust.' : 'Template loaded. Now upload your photo.');
             };
             next.onerror = useFallback;
-            // Frame URLs are relative so they work on GitHub Pages project sites and local hosting.
             next.src = chosen.path;
         }
 
         function resetImageTransform() {
             if (!userImage || !userImage.naturalWidth) return;
-            // Cover the square canvas so the photo is visible edge-to-edge.
             const fit = Math.max(canvas.width / userImage.naturalWidth, canvas.height / userImage.naturalHeight);
             baseW = userImage.naturalWidth * fit;
             baseH = userImage.naturalHeight * fit;
@@ -496,7 +597,6 @@
 
         function drawCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Photo is rendered first; the transparent PNG/SVG frame sits on top.
             if (userImage && userImage.complete && userImage.naturalWidth > 0) {
                 ctx.save();
                 const centerX = imgX + baseW / 2;
@@ -645,7 +745,6 @@
             loadFrame();
             drawCanvas();
             await refreshProjectFrameLibrary(true);
-            // Scan every 3 seconds so newly added frame files appear while the page is open.
             window.setInterval(() => refreshProjectFrameLibrary(true), 3000);
         });
     </script>
