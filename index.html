@@ -468,44 +468,7 @@
             document.getElementById('imagePreviewModal').style.display = 'none';
         }
 
-        // Fallback SVG Generator
-        function makeFallbackFrame(index) {
-            const themes = [
-                { a: '#38bdf8', b: '#fbbf24', title: 'PABNA PILOT SCHOOL & COLLEGE', sub: 'OFFICIAL PHOTO FRAME' },
-                { a: '#22d3ee', b: '#a78bfa', title: 'SCIENCE & TECHNOLOGY', sub: 'DREAM • DISCOVER • CREATE' },
-                { a: '#ef4444', b: '#22c55e', title: 'VICTORY DAY', sub: 'HONOUR • COURAGE • FREEDOM' },
-                { a: '#16a34a', b: '#dc2626', title: 'INDEPENDENCE DAY', sub: 'BANGLADESH • 26 MARCH' },
-                { a: '#f472b6', b: '#facc15', title: 'INTERNATIONAL MOTHER LANGUAGE DAY', sub: 'LANGUAGE • CULTURE • PRIDE' },
-                { a: '#fb923c', b: '#38bdf8', title: 'SPORTS CARNIVAL', sub: 'PLAY • TEAMWORK • EXCELLENCE' },
-                { a: '#c084fc', b: '#fb7185', title: 'CULTURAL FESTIVAL', sub: 'ART • MUSIC • TRADITION' },
-                { a: '#60a5fa', b: '#fbbf24', title: 'GRADUATION', sub: 'A NEW CHAPTER BEGINS' }
-            ];
-            const t = themes[index] || themes[0];
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
-              <defs><linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${t.a}"/><stop offset="1" stop-color="${t.b}"/></linearGradient></defs>
-              <rect x="15" y="15" width="1050" height="1050" rx="30" fill="none" stroke="url(#edge)" stroke-width="16"/>
-              <path d="M25 160 H1055 V25 H25 Z M25 920 H1055 V1055 H25 Z" fill="#07152b" fill-opacity="0.95"/>
-              <text x="540" y="85" text-anchor="middle" fill="${t.a}" font-family="Arial" font-size="28" font-weight="bold" letter-spacing="2">${t.title}</text>
-              <text x="540" y="130" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="20" letter-spacing="3">${t.sub}</text>
-              <text x="540" y="985" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="26" font-weight="bold" letter-spacing="3">PABNA • BANGLADESH</text>
-            </svg>`;
-            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-        }
-
-        let frames = [
-            { id: 'f01', name: 'School Official', path: 'frames/frame01.svg', fallback: makeFallbackFrame(0), slot: { x: 50, y: 170, w: 980, h: 730 } },
-            { id: 'f02', name: 'Science & Tech', path: 'frames/frame02.svg', fallback: makeFallbackFrame(1), slot: { x: 50, y: 170, w: 980, h: 730 } },
-            { id: 'f03', name: 'Victory Day', path: 'frames/frame03.svg', fallback: makeFallbackFrame(2), slot: { x: 50, y: 170, w: 980, h: 730 } },
-            { id: 'f04', name: 'Independence', path: 'frames/frame04.svg', fallback: makeFallbackFrame(3), slot: { x: 50, y: 170, w: 980, h: 730 } },
-            { id: 'f05', name: 'Language Day', path: 'frames/frame05.svg', fallback: makeFallbackFrame(4), slot: { x: 50, y: 170, w: 980, h: 730 } },
-            { id: 'f06', name: 'Sports Carnival', path: 'frames/frame06.svg', fallback: makeFallbackFrame(5), slot: { x: 50, y: 170, w: 980, h: 730 } },
-            { id: 'f07', name: 'Cultural Fest', path: 'frames/frame07.svg', fallback: makeFallbackFrame(6), slot: { x: 50, y: 170, w: 980, h: 730 } },
-            { id: 'f08', name: 'Graduation', path: 'frames/frame08.svg', fallback: makeFallbackFrame(7), slot: { x: 50, y: 170, w: 980, h: 730 } }
-        ];
-
-        let selectedFrameIndex = 0;
-
-        // Photo Queue State (Max 5 photos)
+         // Photo Queue State (Max 5 photos)
         let photoQueue = []; 
         let activeQueueIndex = 0;
 
