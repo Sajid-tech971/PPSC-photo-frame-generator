@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pabna Pilot School & College - Photo Frame Generator</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Pabna Pilot School & College - Professional Photo Frame Generator</title>
+    <!-- Tailwind CSS v4 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Including Bengali Noto Sans & Hind Siliguri) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        body { font-family: 'Poppins', 'Hind Siliguri', sans-serif; background-color: #0b0f19; color: #f8fafc; }
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
-        .neon-glow { text-shadow: 0 0 10px rgba(56, 189, 248, 0.7), 0 0 20px rgba(56, 189, 248, 0.5); }
-        .dev-glow { box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 15px rgba(56, 189, 248, 0.4); }
-        .glass-panel { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .font-bengali { font-family: 'Noto Sans Bengali', 'Hind Siliguri', sans-serif; }
+        .neon-glow { text-shadow: 0 0 12px rgba(56, 189, 248, 0.7), 0 0 24px rgba(56, 189, 248, 0.4); }
+        .dev-glow { box-shadow: 0 0 30px rgba(168, 85, 247, 0.6), inset 0 0 20px rgba(56, 189, 248, 0.3); }
+        .glass-panel { background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 3px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
     <!-- Islamic Welcome Modal -->
-    <div id="welcomeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-        <div class="glass-panel max-w-md w-full rounded-2xl p-8 text-center shadow-2xl border border-blue-500/30 animate-pulse">
-            <div class="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-400">
+    <div id="welcomeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+        <div class="glass-panel max-w-md w-full rounded-3xl p-8 text-center shadow-2xl border border-blue-500/30">
+            <div class="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-400/50 shadow-lg shadow-blue-500/20">
                 <i class="fa-solid fa-graduation-cap text-3xl text-blue-400"></i>
             </div>
             <h2 class="text-2xl font-bold mb-2 font-orbitron text-blue-400">Assalamu Alaikum!</h2>
-            <p class="text-slate-300 mb-6 text-sm">Welcome to the Official Photo Frame Generator Portal of <br><span class="font-semibold text-white">Pabna Pilot School & College</span></p>
-            <button onclick="closeWelcomeModal()" class="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.02] cursor-pointer">
+            <p class="text-slate-300 mb-6 text-sm leading-relaxed">Welcome to the Official Photo Frame Generator Portal of <br><span class="font-semibold text-white">Pabna Pilot School & College</span></p>
+            <button onclick="closeWelcomeModal()" class="w-full py-3.5 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-2xl shadow-lg shadow-blue-600/30 transition duration-300 transform hover:scale-[1.02] cursor-pointer">
                 Enter Portal <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
         </div>
@@ -40,25 +41,29 @@
 
     <!-- Header Section -->
     <header class="glass-panel sticky top-0 z-40 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+                <div class="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
                     <i class="fa-solid fa-school text-xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-extrabold font-orbitron tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-cyan-400 neon-glow">
+                    <h1 class="text-lg sm:text-xl font-extrabold font-orbitron tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-cyan-400 neon-glow">
                         PABNA PILOT SCHOOL & COLLEGE
                     </h1>
-                    <p class="text-xs text-slate-400 tracking-widest uppercase">School Photo Frame Library</p>
+                    <p class="text-[10px] text-slate-400 tracking-widest uppercase">PPSC Photo Frame Studio</p>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2.5">
+                <!-- Admin Mode Toggle -->
+                <button onclick="toggleAdminMode()" id="adminToggleBtn" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl border border-slate-700 transition cursor-pointer flex items-center gap-1.5">
+                    <i class="fa-solid fa-tools text-amber-400"></i> <span data-translate="adminBtn">Admin Mode</span>
+                </button>
                 <!-- Language Toggle Button -->
-                <button onclick="toggleLanguage()" id="langBtn" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 transition cursor-pointer">
+                <button onclick="toggleLanguage()" id="langBtn" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl border border-slate-700 transition cursor-pointer">
                     বাংলা / English
                 </button>
                 <!-- Developer Modal Button -->
-                <button onclick="openDevModal()" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-semibold rounded-lg shadow-md transition duration-300 flex items-center gap-2 cursor-pointer">
+                <button onclick="openDevModal()" class="px-3.5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-semibold rounded-xl shadow-md transition duration-300 flex items-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-code"></i> <span data-translate="devBtn">Developer Info</span>
                 </button>
             </div>
@@ -66,77 +71,164 @@
     </header>
 
     <!-- Main Workspace -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Left Side: Controls & Tools -->
-        <div class="lg:col-span-5 space-y-6">
+        <div class="lg:col-span-5 space-y-5">
             
             <!-- Step 1: Template Selection -->
-            <div class="glass-panel p-6 rounded-2xl shadow-xl">
-                <h2 class="text-lg font-semibold mb-4 text-blue-400 font-orbitron flex items-center gap-2">
-                    <i class="fa-solid fa-image"></i> <span data-translate="step1">1. Choose Template</span>
-                </h2>
-                <div id="templateContainer" class="grid grid-cols-2 gap-3">
-                    <!-- Project-owned templates are loaded from the frames folder -->
+            <div class="glass-panel p-5 rounded-2xl shadow-xl">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-sm font-semibold text-blue-400 font-orbitron flex items-center gap-2">
+                        <i class="fa-solid fa-image"></i> <span data-translate="step1">1. Choose Template</span>
+                    </h2>
+                    <span id="templateCountBadge" class="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full border border-blue-500/30">8 Frames</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-3"><i class="fa-solid fa-folder-open mr-1 text-blue-400"></i> Frames are auto-detected from the project’s frames/ folder.</p>
+                <div id="templateContainer" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-56 overflow-y-auto p-1">
+                    <!-- Templates dynamically loaded -->
+                </div>
             </div>
 
-            <!-- Step 2: Upload Photo -->
-            <div class="glass-panel p-6 rounded-2xl shadow-xl">
-                <h2 class="text-lg font-semibold mb-4 text-blue-400 font-orbitron flex items-center gap-2">
-                    <i class="fa-solid fa-upload"></i> <span data-translate="step2">2. Upload Your Photo</span>
-                </h2>
-                <label class="flex flex-col items-center justify-center border-2 border-dashed border-slate-600 hover:border-blue-400 rounded-xl p-6 cursor-pointer bg-slate-900/50 transition">
-                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-blue-400 mb-2"></i>
-                    <span class="text-sm text-slate-300 font-medium" data-translate="uploadText">Click here to select photo</span>
-                    <span class="text-xs text-slate-500 mt-1">PNG, JPG, JPEG (Max 10MB)</span>
-                    <input type="file" id="imageLoader" accept="image/*" class="hidden">
+            <!-- Step 2: Universal Multi-Photo Upload Manager (Max 5) -->
+            <div class="glass-panel p-5 rounded-2xl shadow-xl space-y-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-sm font-semibold text-blue-400 font-orbitron flex items-center gap-2">
+                        <i class="fa-solid fa-upload"></i> <span data-translate="step2">2. Photo Queue (Max 5)</span>
+                    </h2>
+                    <span id="queueCountBadge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">0/5</span>
+                </div>
+
+                <!-- Dropzone -->
+                <label id="dropZone" class="flex flex-col items-center justify-center border-2 border-dashed border-slate-600 hover:border-blue-400 rounded-xl p-4 cursor-pointer bg-slate-900/60 transition group">
+                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-blue-400 mb-1 group-hover:scale-110 transition"></i>
+                    <span class="text-xs text-slate-200 font-medium text-center" data-translate="uploadText">Click or Drag photos here (1 to 5)</span>
+                    <span class="text-[10px] text-slate-400 mt-0.5">PNG, JPG, JPEG (Max 10MB each)</span>
+                    <input type="file" id="multiImageLoader" accept="image/*" multiple class="hidden">
                 </label>
+
+                <!-- Photo Queue Thumbnail List with Drag-and-Drop Reordering -->
+                <div id="photoQueueList" class="space-y-2 max-h-48 overflow-y-auto">
+                    <!-- Dynamic queue items -->
+                </div>
             </div>
 
-            <!-- Step 3: Adjustments (Zoom & Rotate) -->
-            <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
-                <h2 class="text-lg font-semibold text-blue-400 font-orbitron flex items-center gap-2">
-                    <i class="fa-solid fa-sliders"></i> <span data-translate="step3">3. Adjust Image</span>
+            <!-- Step 3: Slot & Image Adjustments -->
+            <div class="glass-panel p-5 rounded-2xl shadow-xl space-y-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-sm font-semibold text-blue-400 font-orbitron flex items-center gap-2">
+                        <i class="fa-solid fa-sliders"></i> <span data-translate="step3">3. Slot & Image Controls</span>
+                    </h2>
+                    <div class="flex gap-1">
+                        <button onclick="undoAction()" title="Undo" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs border border-slate-700"><i class="fa-solid fa-rotate-left"></i></button>
+                        <button onclick="redoAction()" title="Redo" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs border border-slate-700"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button onclick="resetCurrentTransform()" title="Reset" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs border border-slate-700"><i class="fa-solid fa-power-off"></i></button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                            <span data-translate="zoomLbl">Zoom</span>
+                            <span id="zoomVal">1.0x</span>
+                        </div>
+                        <input type="range" id="zoomRange" min="0.2" max="3.0" step="0.05" value="1.0" class="w-full accent-blue-500 cursor-pointer">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                            <span data-translate="rotateLbl">Rotate</span>
+                            <span id="rotateVal">0°</span>
+                        </div>
+                        <input type="range" id="rotateRange" min="-180" max="180" step="1" value="0" class="w-full accent-blue-500 cursor-pointer">
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-1">
+                    <button onclick="flipImage('h')" class="flex-1 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700 flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-arrows-left-right"></i> <span data-translate="flipHLbl">Flip H</span>
+                    </button>
+                    <button onclick="flipImage('v')" class="flex-1 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700 flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-arrows-up-down"></i> <span data-translate="flipVLbl">Flip V</span>
+                    </button>
+                    <button onclick="fitImageToSlot()" class="flex-1 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700 flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-expand"></i> <span data-translate="fitLbl">Fit Slot</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Professional Text Editor (With Full Drag, Rotate, & Scale Support) -->
+            <div class="glass-panel p-5 rounded-2xl shadow-xl space-y-3">
+                <h2 class="text-sm font-semibold text-blue-400 font-orbitron flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-font"></i> <span data-translate="textEditorTitle">4. Custom Text Layers</span></span>
+                    <button onclick="addTextLayer()" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-semibold rounded-lg shadow"><i class="fa-solid fa-plus mr-1"></i> Add</button>
                 </h2>
-                <div>
-                    <div class="flex justify-between text-xs text-slate-400 mb-1">
-                        <span data-translate="zoomLbl">Zoom Scale</span>
-                        <span id="zoomVal">1.0x</span>
-                    </div>
-                    <input type="range" id="zoomRange" min="0.2" max="3.0" step="0.05" value="1.0" class="w-full accent-blue-500 cursor-pointer">
-                </div>
-                <div>
-                    <div class="flex justify-between text-xs text-slate-400 mb-1">
-                        <span data-translate="rotateLbl">Rotation Angle</span>
-                        <span id="rotateVal">0°</span>
-                    </div>
-                    <input type="range" id="rotateRange" min="-180" max="180" step="1" value="0" class="w-full accent-blue-500 cursor-pointer">
+                <div id="textLayersList" class="space-y-2 max-h-48 overflow-y-auto">
+                    <!-- Text layer controls generated here -->
                 </div>
             </div>
 
-            <!-- Download Button -->
-            <button id="downloadBtn" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/30 transition duration-300 flex items-center justify-center gap-3 text-lg cursor-pointer">
-                <i class="fa-solid fa-download"></i> <span data-translate="downloadBtn">Download Framed Photo</span>
-            </button>
+            <!-- Download Button & Clear -->
+            <div class="flex gap-3">
+                <button onclick="clearAllProjectData()" class="px-4 py-3.5 bg-slate-800 hover:bg-red-900/40 text-slate-300 hover:text-red-300 font-semibold rounded-2xl border border-slate-700 transition text-xs flex items-center justify-center" title="Clear Project">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+                <button id="downloadBtn" class="flex-grow py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/30 transition duration-300 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer">
+                    <i class="fa-solid fa-download"></i> <span data-translate="downloadBtn">Download Framed Photo</span>
+                </button>
+            </div>
 
         </div>
 
-        <!-- Right Side: Live Canvas Preview -->
-        <div class="lg:col-span-7 flex flex-col items-center justify-center glass-panel p-6 rounded-2xl shadow-xl min-h-[450px]">
-            <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 font-orbitron" data-translate="previewLbl">Live Preview Area</h2>
+        <!-- Right Side: Live Canvas Preview & Admin Mode Panel -->
+        <div class="lg:col-span-7 flex flex-col items-center justify-center glass-panel p-6 rounded-2xl shadow-xl min-h-[500px]">
+            <div class="w-full flex justify-between items-center mb-3">
+                <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-widest font-orbitron" data-translate="previewLbl">Live Preview Area</h2>
+                <span id="canvasDimensionsIndicator" class="text-[10px] text-slate-500 font-mono">1080 × 1080 px</span>
+            </div>
+
             <div class="relative max-w-full overflow-hidden rounded-xl border-2 border-slate-700 shadow-2xl bg-black">
                 <!-- Canvas Element -->
-                <canvas id="frameCanvas" width="1080" height="1080" class="block w-full max-w-[500px] h-auto aspect-square object-contain cursor-grab active:cursor-grabbing touch-none"></canvas>
-                <p id="canvasStatus" class="text-xs text-amber-300 mt-2 text-center">Choose a template and upload your photo.</p>
+                <canvas id="frameCanvas" width="1080" height="1080" class="block w-full max-w-[540px] h-auto aspect-square object-contain cursor-grab active:cursor-grabbing touch-none"></canvas>
+                <p id="canvasStatus" class="text-xs text-amber-300 mt-2 text-center">Upload photos and choose a frame to begin.</p>
             </div>
-            <p class="text-xs text-slate-400 mt-3 text-center"><i class="fa-solid fa-circle-info mr-1 text-blue-400"></i> <span data-translate="tipText">You can drag the photo inside canvas to reposition it.</span></p>
+            
+            <p class="text-xs text-slate-400 mt-3 text-center"><i class="fa-solid fa-circle-info mr-1 text-blue-400"></i> <span data-translate="tipText">Drag photos or text on canvas to reposition/rotate. Changes auto-save.</span></p>
+
+            <!-- Admin Mode Panel -->
+            <div id="adminPanel" class="w-full mt-6 p-4 rounded-xl bg-slate-900/90 border border-amber-500/40 hidden">
+                <h3 class="text-sm font-bold text-amber-400 font-orbitron mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved"></i> Frame Designer / Slot Boundary Admin Mode
+                </h3>
+                <p class="text-xs text-slate-300 mb-3">কাস্টম ফ্রেমের ফটো স্লট কোঅর্ডিনেট ($X, Y, Width, Height$) কনফিগার করুন। হলুদ বক্স দ্বারা অন-স্ক্রিন বাউন্ডারি নির্দেশিত।</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                    <div>
+                        <label class="text-[10px] text-slate-400 block mb-1">Slot X</label>
+                        <input type="number" id="adminSlotX" value="50" onchange="applyAdminSlotConfig()" class="w-full p-1.5 bg-slate-800 rounded border border-slate-700 text-white">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 block mb-1">Slot Y</label>
+                        <input type="number" id="adminSlotY" value="170" onchange="applyAdminSlotConfig()" class="w-full p-1.5 bg-slate-800 rounded border border-slate-700 text-white">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 block mb-1">Slot Width</label>
+                        <input type="number" id="adminSlotW" value="980" onchange="applyAdminSlotConfig()" class="w-full p-1.5 bg-slate-800 rounded border border-slate-700 text-white">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 block mb-1">Slot Height</label>
+                        <input type="number" id="adminSlotH" value="730" onchange="applyAdminSlotConfig()" class="w-full p-1.5 bg-slate-800 rounded border border-slate-700 text-white">
+                    </div>
+                </div>
+                <div class="flex gap-2 mt-3">
+                    <button onclick="applyAdminSlotConfig()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded shadow">Save Slot Boundary</button>
+                    <label class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded border border-slate-700 cursor-pointer">
+                        Upload Custom Frame <input type="file" id="customFrameUpload" accept="image/*" class="hidden">
+                    </label>
+                </div>
+            </div>
         </div>
 
     </main>
 
-    <!-- Teachers & Faculty Section (20+ Faculty Support) -->
+    <!-- Teachers & Faculty Section (Preserving All 9 Teachers) -->
     <section class="max-w-7xl mx-auto px-4 py-8 w-full">
         <h2 class="text-2xl font-bold font-orbitron text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">
             <span data-translate="facultyTitle">Our Honourable Teachers....</span>
@@ -155,13 +247,12 @@
     </footer>
 
     <!-- Developer Modal -->
-    <div id="devModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div id="devModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
         <div class="glass-panel max-w-lg w-full rounded-3xl p-8 shadow-2xl dev-glow relative border border-purple-500/40 text-center">
             <button onclick="closeDevModal()" class="absolute top-4 right-4 w-10 h-10 bg-slate-800 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition cursor-pointer">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="relative w-32 h-32 mx-auto mb-4 rounded-full p-1 bg-gradient-to-tr from-purple-500 via-pink-500 to-blue-500 shadow-xl cursor-pointer" onclick="openDevImagePreview()">
-                <!-- Developer Photo loaded from images folder -->
                 <img src="images/developer.jpg" alt="MD Sadid Hasan Sajid" class="w-full h-full object-cover rounded-full bg-slate-900" onerror="this.src='https://via.placeholder.com/150/0f172a/38bdf8?text=SAJID'">
             </div>
             <h3 class="text-2xl font-bold font-orbitron text-white neon-glow">MD Sadid Hasan Sajid</h3>
@@ -193,8 +284,6 @@
                 <img id="previewImgSrc" src="" alt="Zoomed Preview" class="w-full h-full object-cover">
             </div>
             <h3 id="previewImgTitle" class="text-base font-bold text-white font-orbitron mt-2"></h3>
-            
-            <!-- Dynamic Social Buttons Container -->
             <div id="previewSocialContainer" class="flex flex-wrap justify-center gap-2 mt-4"></div>
         </div>
     </div>
@@ -205,28 +294,38 @@
         const langData = {
             en: {
                 devBtn: "Developer Info",
+                adminBtn: "Admin Mode",
                 step1: "1. Choose Template",
-                step2: "2. Upload Your Photo",
-                uploadText: "Click here to select photo",
-                step3: "3. Adjust Image",
-                zoomLbl: "Zoom Scale",
-                rotateLbl: "Rotation Angle",
+                step2: "2. Photo Queue (Max 5)",
+                uploadText: "Click or Drag photos here (1 to 5)",
+                step3: "3. Slot & Image Controls",
+                zoomLbl: "Zoom",
+                rotateLbl: "Rotate",
+                flipHLbl: "Flip H",
+                flipVLbl: "Flip V",
+                fitLbl: "Fit Slot",
+                textEditorTitle: "4. Custom Text Layers",
                 downloadBtn: "Download Framed Photo",
                 previewLbl: "Live Preview Area",
-                tipText: "You can drag the photo inside canvas to reposition it.",
+                tipText: "Drag photos or text on canvas to reposition/rotate. Changes auto-save.",
                 facultyTitle: "Our Honourable Teachers...."
             },
             bn: {
                 devBtn: "ডেভেলপার তথ্য",
+                adminBtn: "অ্যাডমিন মোড",
                 step1: "১. টেমপ্লেট নির্বাচন করুন",
-                step2: "২. আপনার ছবি আপলোড করুন",
-                uploadText: "ছবি সিলেক্ট করতে এখানে ক্লিক করুন",
-                step3: "৩. ছবি অ্যাডজাস্ট করুন",
-                zoomLbl: "জুম সাইজ",
-                rotateLbl: "ঘোরানোর কোণ",
+                step2: "২. ছবি কিউ (সর্বোচ্চ ৫)",
+                uploadText: "ছবি আপলোড করতে ক্লিক বা ড্র্যাগ করুন (১-৫)",
+                step3: "৩. স্লট ও ছবি নিয়ন্ত্রণ",
+                zoomLbl: "জুম",
+                rotateLbl: "ঘোরান",
+                flipHLbl: "উল্লম্ব",
+                flipVLbl: "অনুভূমিক",
+                fitLbl: "ফিট স্লট",
+                textEditorTitle: "৪. কাস্টম টেক্সট লেয়ার",
                 downloadBtn: "ফ্রেমসহ ছবি ডাউনলোড করুন",
                 previewLbl: "লাইভ প্রিভিউ এরিয়া",
-                tipText: "ছবি পজিশনমতো সেট করতে ক্যানভাসের ওপর ড্র্যাগ করতে পারেন।",
+                tipText: "পজিশন ঠিক করতে ক্যানভাসে ছবি বা টেক্সট ড্র্যাগ করুন।",
                 facultyTitle: "আমাদের সম্মানিত শিক্ষকবৃন্দ"
             }
         };
@@ -243,14 +342,13 @@
             });
             renderTemplates();
             renderTeachers();
+            renderTextLayersUI();
         }
 
-        // Welcome Modal Control
         function closeWelcomeModal() {
             document.getElementById('welcomeModal').style.display = 'none';
         }
 
-        // Developer Modal Control
         function openDevModal() {
             document.getElementById('devModal').style.display = 'flex';
         }
@@ -258,169 +356,17 @@
             document.getElementById('devModal').style.display = 'none';
         }
 
-        // Image Click Popup Preview Functions
-        function openTeacherPreview(index) {
-            const t = teachers[index];
-            if (!t) return;
-
-            document.getElementById('previewImgSrc').src = t.img;
-            document.getElementById('previewImgTitle').innerText = t.name + ' - ' + t.role[currentLang];
-
-            const socialContainer = document.getElementById('previewSocialContainer');
-            socialContainer.innerHTML = '';
-
-            // Render Facebook Button if link exists
-            if (t.facebook && t.facebook.trim() !== "") {
-                const fbBtn = document.createElement('a');
-                fbBtn.href = t.facebook;
-                fbBtn.target = '_blank';
-                fbBtn.className = 'px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
-                fbBtn.innerHTML = '<i class="fa-brands fa-facebook"></i> Facebook';
-                socialContainer.appendChild(fbBtn);
-            }
-
-            // Render WhatsApp Button if link exists
-            if (t.whatsapp && t.whatsapp.trim() !== "") {
-                const waBtn = document.createElement('a');
-                waBtn.href = t.whatsapp.startsWith('http') ? t.whatsapp : `https://wa.me/${t.whatsapp}`;
-                waBtn.target = '_blank';
-                waBtn.className = 'px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
-                waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i> WhatsApp';
-                socialContainer.appendChild(waBtn);
-            }
-
-            // Render Email Button if link exists
-            if (t.email && t.email.trim() !== "") {
-                const mailBtn = document.createElement('a');
-                mailBtn.href = t.email.startsWith('mailto:') ? t.email : `mailto:${t.email}`;
-                mailBtn.className = 'px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
-                mailBtn.innerHTML = '<i class="fa-solid fa-envelope"></i> Email';
-                socialContainer.appendChild(mailBtn);
-            }
-
-            document.getElementById('imagePreviewModal').style.display = 'flex';
+        let adminModeActive = false;
+        function toggleAdminMode() {
+            adminModeActive = !adminModeActive;
+            const panel = document.getElementById('adminPanel');
+            panel.classList.toggle('hidden', !adminModeActive);
+            drawCanvas();
         }
 
-        function openDevImagePreview() {
-            document.getElementById('previewImgSrc').src = 'images/developer.jpg';
-            document.getElementById('previewImgTitle').innerText = 'MD Sadid Hasan Sajid';
-            const socialContainer = document.getElementById('previewSocialContainer');
-            socialContainer.innerHTML = `
-                <a href="https://www.facebook.com/PrinceSajidOfficial136" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-brands fa-facebook"></i> Facebook</a>
-                <a href="https://wa.me/+8801732161779" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-                <a href="mailto:x@sajidx.cyou" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-solid fa-envelope"></i> Email</a>
-            `;
-            document.getElementById('imagePreviewModal').style.display = 'flex';
-        }
-
-        function closeImagePreview() {
-            document.getElementById('imagePreviewModal').style.display = 'none';
-        }
-
-        // Built-in fallback overlays keep the app usable if optional PNG files are absent.
-        function makeFallbackFrame(index) {
-            const themes = [
-                { a: '#38bdf8', b: '#fbbf24', title: 'PABNA PILOT SCHOOL & COLLEGE', sub: 'OFFICIAL PHOTO FRAME' },
-                { a: '#22d3ee', b: '#a78bfa', title: 'SCIENCE & TECHNOLOGY', sub: 'DREAM • DISCOVER • CREATE' },
-                { a: '#ef4444', b: '#22c55e', title: 'VICTORY DAY', sub: 'HONOUR • COURAGE • FREEDOM' },
-                { a: '#16a34a', b: '#dc2626', title: 'INDEPENDENCE DAY', sub: 'BANGLADESH • 26 MARCH' },
-                { a: '#f472b6', b: '#facc15', title: 'INTERNATIONAL MOTHER LANGUAGE DAY', sub: 'LANGUAGE • CULTURE • PRIDE' },
-                { a: '#fb923c', b: '#38bdf8', title: 'SPORTS CARNIVAL', sub: 'PLAY • TEAMWORK • EXCELLENCE' },
-                { a: '#c084fc', b: '#fb7185', title: 'CULTURAL FESTIVAL', sub: 'ART • MUSIC • TRADITION' },
-                { a: '#60a5fa', b: '#fbbf24', title: 'GRADUATION', sub: 'A NEW CHAPTER BEGINS' },
-                { a: '#34d399', b: '#22d3ee', title: 'ROBOTICS & CODING', sub: 'IMAGINE • BUILD • INNOVATE' },
-                { a: '#fbbf24', b: '#a78bfa', title: 'ALUMNI REUNION', sub: 'ONE SCHOOL • MANY MEMORIES' },
-                { a: '#2dd4bf', b: '#60a5fa', title: 'ADMISSION OPEN', sub: 'LEARN • LEAD • SUCCEED' },
-                { a: '#e2e8f0', b: '#64748b', title: 'PPS&C • PREMIUM', sub: 'TIMELESS • CLASSIC • CLEAN' }
-            ];
-            const t = themes[index] || themes[0];
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
-              <defs>
-                <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${t.a}"/><stop offset="1" stop-color="${t.b}"/></linearGradient>
-                <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#07152b" stop-opacity=".97"/><stop offset=".5" stop-color="#102747" stop-opacity=".90"/><stop offset="1" stop-color="#07152b" stop-opacity=".97"/></linearGradient>
-              </defs>
-              <rect x="12" y="12" width="1056" height="1056" rx="34" fill="none" stroke="url(#edge)" stroke-width="18"/>
-              <rect x="35" y="35" width="1010" height="1010" rx="24" fill="none" stroke="${t.a}" stroke-opacity=".65" stroke-width="3"/>
-              <path d="M35 175 H1045 V35 H35 Z M35 905 H1045 V1045 H35 Z" fill="url(#bar)"/>
-              <path d="M50 190 H1030 M50 890 H1030" stroke="url(#edge)" stroke-width="5"/>
-              <circle cx="82" cy="100" r="22" fill="none" stroke="${t.b}" stroke-width="5"/><circle cx="998" cy="100" r="22" fill="none" stroke="${t.b}" stroke-width="5"/>
-              <text x="540" y="91" text-anchor="middle" fill="${t.a}" font-family="Arial,sans-serif" font-size="29" font-weight="700" letter-spacing="2">${t.title}</text>
-              <text x="540" y="137" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="22" letter-spacing="4">${t.sub}</text>
-              <text x="540" y="965" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="3">PABNA • BANGLADESH</text>
-              <text x="540" y="1008" text-anchor="middle" fill="${t.b}" font-family="Arial,sans-serif" font-size="18" letter-spacing="2">MAKE EVERY MOMENT COUNT</text>
-              <path d="M70 225 h35 M70 225 v35 M1010 225 h-35 M1010 225 v35 M70 855 h35 M70 855 v-35 M1010 855 h-35 M1010 855 v-35" stroke="url(#edge)" stroke-width="7" fill="none" stroke-linecap="round"/>
-            </svg>`;
-            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-        }
-
-        // Project-owned frame catalogue.
-        let frames = [
-            { id: 'f01', name: 'School Official', path: 'frames/frame01.svg', fallback: makeFallbackFrame(0) },
-            { id: 'f02', name: 'Science & Technology', path: 'frames/frame02.svg', fallback: makeFallbackFrame(1) },
-            { id: 'f03', name: 'Victory Day', path: 'frames/frame03.svg', fallback: makeFallbackFrame(2) },
-            { id: 'f04', name: 'Independence Day', path: 'frames/frame04.svg', fallback: makeFallbackFrame(3) },
-            { id: 'f05', name: 'Language Day', path: 'frames/frame05.svg', fallback: makeFallbackFrame(4) },
-            { id: 'f06', name: 'Sports Carnival', path: 'frames/frame06.svg', fallback: makeFallbackFrame(5) },
-            { id: 'f07', name: 'Cultural Festival', path: 'frames/frame07.svg', fallback: makeFallbackFrame(6) },
-            { id: 'f08', name: 'Graduation', path: 'frames/frame08.svg', fallback: makeFallbackFrame(7) },
-            { id: 'f09', name: 'Robotics & Coding', path: 'frames/frame09.svg', fallback: makeFallbackFrame(8) },
-            { id: 'f10', name: 'Alumni Reunion', path: 'frames/frame10.svg', fallback: makeFallbackFrame(9) },
-            { id: 'f11', name: 'Admission Season', path: 'frames/frame11.svg', fallback: makeFallbackFrame(10) },
-            { id: 'f12', name: 'Premium Dark', path: 'frames/frame12.svg', fallback: makeFallbackFrame(11) }
-        ];
-
-        function friendlyFrameName(filename) {
-            return filename.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ')
-                .replace(/\s+/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
-        }
-
-        async function refreshProjectFrameLibrary(silent = false) {
-            try {
-                let response = await fetch('./frames.json', { cache: 'no-store' });
-                let data = null;
-                if (response.ok) {
-                    data = await response.json();
-                } else {
-                    response = await fetch('/api/frames', { cache: 'no-store' });
-                    if (!response.ok) throw new Error('Could not load frames.json or /api/frames');
-                    data = await response.json();
-                }
-                if (!Array.isArray(data.frames) || data.frames.length === 0) {
-                    if (!silent) setStatus('No frames found. Add image files to the frames folder and redeploy.', true);
-                    return;
-                }
-                const nextFrames = data.frames.map((item, index) => ({
-                    id: 'project-' + (item.filename || item.path || index),
-                    name: item.name || friendlyFrameName(item.filename || item.path || ('Frame ' + (index + 1))),
-                    path: item.path || ('frames/' + item.filename),
-                    fallback: makeFallbackFrame(index % 12)
-                }));
-                const signature = list => list.map(f => f.path + '|' + f.name).join('\n');
-                if (signature(frames) === signature(nextFrames)) return;
-                const currentPath = frames[selectedFrameIndex]?.path;
-                frames = nextFrames;
-                const foundIndex = frames.findIndex(f => f.path === currentPath);
-                selectedFrameIndex = foundIndex >= 0 ? foundIndex : 0;
-                renderTemplates();
-                await loadFrame();
-                if (!silent) setStatus('Frame library refreshed: ' + frames.length + ' frame(s) found.');
-            } catch (error) {
-                if (!silent) {
-                    console.warn('Frame library load failed:', error);
-                    setStatus('Could not load the frame list. Check frames.json or run the local server.', true);
-                }
-            }
-        }
-
-        let selectedFrameIndex = 0;
-
-        /* 
-         * TEACHERS DATA (শিক্ষকদের তথ্য ও সোশ্যাল বাটন লিঙ্ক)
-         * যে স্যারের যে লিঙ্ক নেই, সেটা ফাঁকা/খালি ("") রাখুন। তাহলে সেই বাটনটা পপআপে দেখাবে না।
-        */
+        // Teachers Data (100% Preserved)
         const teachers = [
-            
-	    { 
+            { 
                 name: "Ikramul Haque", 
                 role: { en: "Chairman PPSC", bn: "চেয়ারম্যান, পি পি এস সি" }, 
                 img: "images/ikram.jpeg",
@@ -428,8 +374,7 @@
                 whatsapp: "+8801712406544",
                 email: ""
             },
-
-	    { 
+            { 
                 name: "Rashidul Islam Rashed", 
                 role: { en: "Principal", bn: "প্রধান শিক্ষক" }, 
                 img: "images/rashed.jpg",
@@ -481,7 +426,7 @@
                 name: "Marzan Shawon", 
                 role: { en: "Asst. Teacher (English)", bn: "সহকারী শিক্ষক (ইংরেজি)" }, 
                 img: "images/shawon.jpeg",
-                facebook: "https://www.facebook.com/marzan.shawon?comment_id=Y29tbWVudDoxMjIxOTY1NjQzMjA5Mzk3OTVfMTQzOTk5ODIzODIyMDY2Mg%3D%3D",
+                facebook: "https://www.facebook.com/marzan.shawon",
                 whatsapp: "+8801758600334",
                 email: ""
             },
@@ -495,54 +440,508 @@
             }
         ];
 
-        // Canvas photo-frame engine
+        function openTeacherPreview(index) {
+            const t = teachers[index];
+            if (!t) return;
+            document.getElementById('previewImgSrc').src = t.img;
+            document.getElementById('previewImgTitle').innerText = t.name + ' - ' + t.role[currentLang];
+            const socialContainer = document.getElementById('previewSocialContainer');
+            socialContainer.innerHTML = '';
+            if (t.facebook) socialContainer.innerHTML += `<a href="${t.facebook}" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow"><i class="fa-brands fa-facebook"></i> Facebook</a>`;
+            if (t.whatsapp) socialContainer.innerHTML += `<a href="${t.whatsapp.startsWith('http') ? t.whatsapp : 'https://wa.me/'+t.whatsapp}" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>`;
+            if (t.email) socialContainer.innerHTML += `<a href="mailto:${t.email}" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow"><i class="fa-solid fa-envelope"></i> Email</a>`;
+            document.getElementById('imagePreviewModal').style.display = 'flex';
+        }
+
+        function openDevImagePreview() {
+            document.getElementById('previewImgSrc').src = 'images/developer.jpg';
+            document.getElementById('previewImgTitle').innerText = 'MD Sadid Hasan Sajid';
+            document.getElementById('previewSocialContainer').innerHTML = `
+                <a href="https://www.facebook.com/PrinceSajidOfficial136" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                <a href="https://wa.me/+8801732161779" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                <a href="mailto:x@sajidx.cyou" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow"><i class="fa-solid fa-envelope"></i> Email</a>
+            `;
+            document.getElementById('imagePreviewModal').style.display = 'flex';
+        }
+
+        function closeImagePreview() {
+            document.getElementById('imagePreviewModal').style.display = 'none';
+        }
+
+        // Fallback SVG Generator
+        function makeFallbackFrame(index) {
+            const themes = [
+                { a: '#38bdf8', b: '#fbbf24', title: 'PABNA PILOT SCHOOL & COLLEGE', sub: 'OFFICIAL PHOTO FRAME' },
+                { a: '#22d3ee', b: '#a78bfa', title: 'SCIENCE & TECHNOLOGY', sub: 'DREAM • DISCOVER • CREATE' },
+                { a: '#ef4444', b: '#22c55e', title: 'VICTORY DAY', sub: 'HONOUR • COURAGE • FREEDOM' },
+                { a: '#16a34a', b: '#dc2626', title: 'INDEPENDENCE DAY', sub: 'BANGLADESH • 26 MARCH' },
+                { a: '#f472b6', b: '#facc15', title: 'INTERNATIONAL MOTHER LANGUAGE DAY', sub: 'LANGUAGE • CULTURE • PRIDE' },
+                { a: '#fb923c', b: '#38bdf8', title: 'SPORTS CARNIVAL', sub: 'PLAY • TEAMWORK • EXCELLENCE' },
+                { a: '#c084fc', b: '#fb7185', title: 'CULTURAL FESTIVAL', sub: 'ART • MUSIC • TRADITION' },
+                { a: '#60a5fa', b: '#fbbf24', title: 'GRADUATION', sub: 'A NEW CHAPTER BEGINS' }
+            ];
+            const t = themes[index] || themes[0];
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+              <defs><linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${t.a}"/><stop offset="1" stop-color="${t.b}"/></linearGradient></defs>
+              <rect x="15" y="15" width="1050" height="1050" rx="30" fill="none" stroke="url(#edge)" stroke-width="16"/>
+              <path d="M25 160 H1055 V25 H25 Z M25 920 H1055 V1055 H25 Z" fill="#07152b" fill-opacity="0.95"/>
+              <text x="540" y="85" text-anchor="middle" fill="${t.a}" font-family="Arial" font-size="28" font-weight="bold" letter-spacing="2">${t.title}</text>
+              <text x="540" y="130" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="20" letter-spacing="3">${t.sub}</text>
+              <text x="540" y="985" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="26" font-weight="bold" letter-spacing="3">PABNA • BANGLADESH</text>
+            </svg>`;
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        }
+
+        let frames = [
+            { id: 'f01', name: 'School Official', path: 'frames/frame01.svg', fallback: makeFallbackFrame(0), slot: { x: 50, y: 170, w: 980, h: 730 } },
+            { id: 'f02', name: 'Science & Tech', path: 'frames/frame02.svg', fallback: makeFallbackFrame(1), slot: { x: 50, y: 170, w: 980, h: 730 } },
+            { id: 'f03', name: 'Victory Day', path: 'frames/frame03.svg', fallback: makeFallbackFrame(2), slot: { x: 50, y: 170, w: 980, h: 730 } },
+            { id: 'f04', name: 'Independence', path: 'frames/frame04.svg', fallback: makeFallbackFrame(3), slot: { x: 50, y: 170, w: 980, h: 730 } },
+            { id: 'f05', name: 'Language Day', path: 'frames/frame05.svg', fallback: makeFallbackFrame(4), slot: { x: 50, y: 170, w: 980, h: 730 } },
+            { id: 'f06', name: 'Sports Carnival', path: 'frames/frame06.svg', fallback: makeFallbackFrame(5), slot: { x: 50, y: 170, w: 980, h: 730 } },
+            { id: 'f07', name: 'Cultural Fest', path: 'frames/frame07.svg', fallback: makeFallbackFrame(6), slot: { x: 50, y: 170, w: 980, h: 730 } },
+            { id: 'f08', name: 'Graduation', path: 'frames/frame08.svg', fallback: makeFallbackFrame(7), slot: { x: 50, y: 170, w: 980, h: 730 } }
+        ];
+
+        let selectedFrameIndex = 0;
+
+        // Photo Queue State (Max 5 photos)
+        let photoQueue = []; 
+        let activeQueueIndex = 0;
+
+        // Custom Text Layers State (Interactive Dragging & Rotation Enabled)
+        let textLayers = [
+            { id: 't1', text: 'Pabna Pilot School & College', x: 540, y: 940, size: 30, color: '#ffffff', font: 'Poppins', bold: true, italic: false, angle: 0 }
+        ];
+        let activeTextId = 't1';
+
+        // History Stack
+        let undoStack = [];
+        let redoStack = [];
+
+        function saveStateToHistory() {
+            undoStack.push(JSON.stringify({ photoQueue, textLayers, selectedFrameIndex }));
+            if (undoStack.length > 20) undoStack.shift();
+            redoStack = [];
+            autoSaveProject();
+        }
+
+        function undoAction() {
+            if (undoStack.length === 0) return;
+            redoStack.push(JSON.stringify({ photoQueue, textLayers, selectedFrameIndex }));
+            const prevState = JSON.parse(undoStack.pop());
+            photoQueue = prevState.photoQueue;
+            textLayers = prevState.textLayers;
+            selectedFrameIndex = prevState.selectedFrameIndex;
+            rebuildQueueUI();
+            renderTextLayersUI();
+            renderTemplates();
+            drawCanvas();
+        }
+
+        function redoAction() {
+            if (redoStack.length === 0) return;
+            undoStack.push(JSON.stringify({ photoQueue, textLayers, selectedFrameIndex }));
+            const nextState = JSON.parse(redoStack.pop());
+            photoQueue = nextState.photoQueue;
+            textLayers = nextState.textLayers;
+            selectedFrameIndex = nextState.selectedFrameIndex;
+            rebuildQueueUI();
+            renderTextLayersUI();
+            renderTemplates();
+            drawCanvas();
+        }
+
+        // Canvas Engine
         const canvas = document.getElementById('frameCanvas');
         const ctx = canvas.getContext('2d', { alpha: true });
-        if (!ctx) throw new Error('Your browser does not support Canvas 2D.');
-        const statusEl = document.getElementById('canvasStatus');
-
-        let userImage = null;
         let frameImage = new Image();
-        let frameImageLoaded = false;
-        let scale = 1;
-        let rotation = 0;
-        let imgX = 0, imgY = 0;
-        let baseW = 1080, baseH = 1080;
+        let frameLoaded = false;
+        
+        // Canvas Interaction State: 'photo' or 'text'
+        let dragTargetType = null; // 'photo' or 'text'
         let isDragging = false;
         let dragPointer = null;
         let lastPointer = { x: 0, y: 0 };
-        let hasUserPhoto = false;
 
-        function setStatus(message, isError = false) {
-            if (!statusEl) return;
-            statusEl.textContent = message;
-            statusEl.className = 'text-xs mt-2 text-center ' + (isError ? 'text-red-300' : 'text-emerald-300');
+        function setStatus(msg, isErr = false) {
+            const el = document.getElementById('canvasStatus');
+            if (!el) return;
+            el.textContent = msg;
+            el.className = 'text-xs mt-2 text-center ' + (isErr ? 'text-red-300' : 'text-emerald-300');
         }
 
         function renderTemplates() {
             const container = document.getElementById('templateContainer');
             container.innerHTML = '';
-            frames.forEach((frame, idx) => {
+            frames.forEach((f, idx) => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                btn.className = `p-3 rounded-xl border text-left cursor-pointer transition flex items-center gap-3 ${idx === selectedFrameIndex ? 'border-blue-500 bg-blue-600/20 shadow-md shadow-blue-500/20' : 'border-slate-700 bg-slate-900/50 hover:border-slate-500'}`;
+                btn.className = `p-2.5 rounded-xl border text-left cursor-pointer transition flex items-center gap-2.5 ${idx === selectedFrameIndex ? 'border-blue-500 bg-blue-600/20 shadow' : 'border-slate-800 bg-slate-900/50 hover:border-slate-700'}`;
                 btn.innerHTML = `
-                    <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-700 shrink-0">
-                        <img src="${frame.path}" alt="" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${frame.fallback}'">
+                    <div class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-700 shrink-0">
+                        <img src="${f.path}" alt="" class="w-full h-full object-cover" onerror="this.src='${f.fallback}'">
                     </div>
-                    <div class="flex-grow">
-                        <p class="text-xs font-semibold text-slate-200">${frame.name}</p>
-                        <p class="text-[10px] text-slate-400">Template 0${idx + 1}</p>
+                    <div class="overflow-hidden">
+                        <p class="text-xs font-semibold text-slate-200 truncate">${f.name}</p>
+                        <p class="text-[9px] text-slate-400">Frame 0${idx + 1}</p>
                     </div>`;
                 btn.addEventListener('click', () => {
+                    saveStateToHistory();
                     selectedFrameIndex = idx;
                     renderTemplates();
-                    loadFrame();
+                    loadFrameImage();
                 });
                 container.appendChild(btn);
             });
+            document.getElementById('templateCountBadge').textContent = frames.length + ' Frames';
         }
 
+        function loadFrameImage() {
+            frameLoaded = false;
+            const cur = frames[selectedFrameIndex];
+            const img = new Image();
+            img.onload = () => {
+                frameImage = img;
+                frameLoaded = true;
+                drawCanvas();
+            };
+            img.onerror = () => {
+                const fb = new Image();
+                fb.onload = () => {
+                    frameImage = fb;
+                    frameLoaded = true;
+                    drawCanvas();
+                };
+                fb.src = cur.fallback;
+            };
+            img.src = cur.path;
+        }
+
+        // Multi-Photo Upload Manager
+        const multiImageLoader = document.getElementById('multiImageLoader');
+        multiImageLoader.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            if (!files.length) return;
+            if (photoQueue.length + files.length > 5) {
+                setStatus('Maximum 5 photos allowed in the queue.', true);
+                return;
+            }
+            saveStateToHistory();
+            files.forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const fit = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+                        const bw = img.naturalWidth * fit;
+                        const bh = img.naturalHeight * fit;
+                        photoQueue.push({
+                            id: 'p_' + Math.random().toString(36).substr(2, 9),
+                            imgObj: img,
+                            name: file.name,
+                            scale: 1.0,
+                            rotation: 0,
+                            x: (canvas.width - bw) / 2,
+                            y: (canvas.height - bh) / 2,
+                            baseW: bw,
+                            baseH: bh,
+                            flipH: false,
+                            flipV: false
+                        });
+                        if (photoQueue.length === 1) activeQueueIndex = 0;
+                        rebuildQueueUI();
+                        updateControlsFromActivePhoto();
+                        drawCanvas();
+                        setStatus('Photo added to queue successfully.');
+                    };
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+            e.target.value = '';
+        });
+
+        function rebuildQueueUI() {
+            const container = document.getElementById('photoQueueList');
+            container.innerHTML = '';
+            document.getElementById('queueCountBadge').textContent = photoQueue.length + '/5';
+
+            photoQueue.forEach((p, idx) => {
+                const div = document.createElement('div');
+                div.className = `flex items-center justify-between p-2 rounded-xl border transition ${idx === activeQueueIndex ? 'bg-blue-600/20 border-blue-500' : 'bg-slate-900/60 border-slate-800'}`;
+                div.innerHTML = `
+                    <div class="flex items-center gap-2.5 overflow-hidden cursor-pointer" onclick="setActiveQueuePhoto(${idx})">
+                        <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 text-[10px] font-bold flex items-center justify-center shrink-0 border border-slate-700">${idx + 1}</span>
+                        <div class="w-9 h-9 rounded-lg bg-slate-800 overflow-hidden border border-slate-700 shrink-0">
+                            <img src="${p.imgObj.src}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="overflow-hidden">
+                            <p class="text-xs font-medium text-slate-200 truncate max-w-[140px]">${p.name}</p>
+                            <p class="text-[9px] text-slate-400">Position 0${idx + 1}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <button onclick="moveQueueItem(${idx}, -1)" title="Move Up" class="p-1 text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-chevron-up"></i></button>
+                        <button onclick="moveQueueItem(${idx}, 1)" title="Move Down" class="p-1 text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-chevron-down"></i></button>
+                        <button onclick="removeQueueItem(${idx})" title="Remove" class="p-1 text-red-400 hover:text-red-300 text-xs"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
+                container.appendChild(div);
+            });
+        }
+
+        function setActiveQueuePhoto(idx) {
+            activeQueueIndex = idx;
+            rebuildQueueUI();
+            updateControlsFromActivePhoto();
+            drawCanvas();
+        }
+
+        function moveQueueItem(idx, dir) {
+            const target = idx + dir;
+            if (target < 0 || target >= photoQueue.length) return;
+            saveStateToHistory();
+            const temp = photoQueue[idx];
+            photoQueue[idx] = photoQueue[target];
+            photoQueue[target] = temp;
+            activeQueueIndex = target;
+            rebuildQueueUI();
+            drawCanvas();
+        }
+
+        function removeQueueItem(idx) {
+            saveStateToHistory();
+            photoQueue.splice(idx, 1);
+            if (activeQueueIndex >= photoQueue.length) activeQueueIndex = Math.max(0, photoQueue.length - 1);
+            rebuildQueueUI();
+            updateControlsFromActivePhoto();
+            drawCanvas();
+        }
+
+        function updateControlsFromActivePhoto() {
+            const p = photoQueue[activeQueueIndex];
+            if (!p) return;
+            document.getElementById('zoomRange').value = p.scale;
+            document.getElementById('zoomVal').textContent = p.scale.toFixed(2) + 'x';
+            document.getElementById('rotateRange').value = p.rotation;
+            document.getElementById('rotateVal').textContent = p.rotation + '°';
+        }
+
+        // Photo Slider Controls
+        document.getElementById('zoomRange').addEventListener('input', (e) => {
+            const p = photoQueue[activeQueueIndex];
+            if (!p) return;
+            p.scale = Number(e.target.value);
+            document.getElementById('zoomVal').textContent = p.scale.toFixed(2) + 'x';
+            drawCanvas();
+        });
+
+        document.getElementById('rotateRange').addEventListener('input', (e) => {
+            const p = photoQueue[activeQueueIndex];
+            if (!p) return;
+            p.rotation = Number(e.target.value);
+            document.getElementById('rotateVal').textContent = p.rotation + '°';
+            drawCanvas();
+        });
+
+        function flipImage(axis) {
+            const p = photoQueue[activeQueueIndex];
+            if (!p) return;
+            saveStateToHistory();
+            if (axis === 'h') p.flipH = !p.flipH;
+            if (axis === 'v') p.flipV = !p.flipV;
+            drawCanvas();
+        }
+
+        function fitImageToSlot() {
+            const p = photoQueue[activeQueueIndex];
+            if (!p) return;
+            saveStateToHistory();
+            const slot = frames[selectedFrameIndex].slot;
+            const fit = Math.max(slot.w / p.imgObj.naturalWidth, slot.h / p.imgObj.naturalHeight);
+            p.baseW = p.imgObj.naturalWidth * fit;
+            p.baseH = p.imgObj.naturalHeight * fit;
+            p.x = slot.x + (slot.w - p.baseW) / 2;
+            p.y = slot.y + (slot.h - p.baseH) / 2;
+            p.scale = 1.0;
+            p.rotation = 0;
+            updateControlsFromActivePhoto();
+            drawCanvas();
+        }
+
+        function resetCurrentTransform() {
+            const p = photoQueue[activeQueueIndex];
+            if (!p) return;
+            saveStateToHistory();
+            const fit = Math.max(canvas.width / p.imgObj.naturalWidth, canvas.height / p.imgObj.naturalHeight);
+            p.baseW = p.imgObj.naturalWidth * fit;
+            p.baseH = p.imgObj.naturalHeight * fit;
+            p.x = (canvas.width - p.baseW) / 2;
+            p.y = (canvas.height - p.baseH) / 2;
+            p.scale = 1.0;
+            p.rotation = 0;
+            p.flipH = false;
+            p.flipV = false;
+            updateControlsFromActivePhoto();
+            drawCanvas();
+        }
+
+        // Custom Text Layers Management (Interactive Drag, Rotation Angle Controls)
+        function addTextLayer() {
+            saveStateToHistory();
+            const newId = 't_' + Math.random().toString(36).substr(2, 9);
+            textLayers.push({
+                id: newId,
+                text: 'New Text',
+                x: canvas.width / 2,
+                y: canvas.height / 2 + 100,
+                size: 32,
+                color: '#ffffff',
+                font: 'Poppins',
+                bold: true,
+                italic: false,
+                angle: 0
+            });
+            activeTextId = newId;
+            renderTextLayersUI();
+            drawCanvas();
+        }
+
+        function renderTextLayersUI() {
+            const container = document.getElementById('textLayersList');
+            container.innerHTML = '';
+            textLayers.forEach((t) => {
+                const isAct = t.id === activeTextId;
+                const div = document.createElement('div');
+                div.className = `p-3 rounded-xl border space-y-2 transition ${isAct ? 'bg-blue-900/30 border-blue-500' : 'bg-slate-900/70 border-slate-800'}`;
+                div.innerHTML = `
+                    <div class="flex items-center justify-between gap-2">
+                        <input type="text" value="${t.text}" onfocus="activeTextId='${t.id}'; drawCanvas();" oninput="updateTextProp('${t.id}', 'text', this.value)" class="w-full px-2.5 py-1 bg-slate-800 rounded border border-slate-700 text-xs text-white">
+                        <button onclick="removeTextLayer('${t.id}')" class="text-red-400 hover:text-red-300 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 text-[11px]">
+                        <div>
+                            <span class="text-slate-400 text-[10px]">Size</span>
+                            <input type="number" value="${t.size}" min="10" max="150" oninput="updateTextProp('${t.id}', 'size', Number(this.value))" class="w-full p-1 bg-slate-800 rounded border border-slate-700 text-white">
+                        </div>
+                        <div>
+                            <span class="text-slate-400 text-[10px]">Angle°</span>
+                            <input type="number" value="${t.angle || 0}" min="-180" max="180" oninput="updateTextProp('${t.id}', 'angle', Number(this.value))" class="w-full p-1 bg-slate-800 rounded border border-slate-700 text-white">
+                        </div>
+                        <div>
+                            <span class="text-slate-400 text-[10px]">Color</span>
+                            <input type="color" value="${t.color}" oninput="updateTextProp('${t.id}', 'color', this.value)" class="w-full h-7 bg-slate-800 rounded border border-slate-700 cursor-pointer">
+                        </div>
+                        <div>
+                            <span class="text-slate-400 text-[10px]">Font</span>
+                            <select onchange="updateTextProp('${t.id}', 'font', this.value)" class="w-full p-1 bg-slate-800 rounded border border-slate-700 text-white">
+                                <option value="Poppins" ${t.font==='Poppins'?'selected':''}>Poppins</option>
+                                <option value="Noto Sans Bengali" ${t.font==='Noto Sans Bengali'?'selected':''}>Bangla (Noto)</option>
+                                <option value="Hind Siliguri" ${t.font==='Hind Siliguri'?'selected':''}>Bangla (Hind)</option>
+                                <option value="Orbitron" ${t.font==='Orbitron'?'selected':''}>Orbitron</option>
+                            </select>
+                        </div>
+                    </div>`;
+                container.appendChild(div);
+            });
+        }
+
+        function updateTextProp(id, prop, val) {
+            const t = textLayers.find(x => x.id === id);
+            if (!t) return;
+            t[prop] = val;
+            drawCanvas();
+        }
+
+        function removeTextLayer(id) {
+            saveStateToHistory();
+            textLayers = textLayers.filter(x => x.id !== id);
+            if (activeTextId === id) activeTextId = textLayers.length ? textLayers[0].id : null;
+            renderTextLayersUI();
+            drawCanvas();
+        }
+
+        // Mouse/Touch Drag Detection for both Photos and Text Layers
+        function canvasPoint(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: (e.clientX - rect.left) * canvas.width / rect.width,
+                y: (e.clientY - rect.top) * canvas.height / rect.height
+            };
+        }
+
+        function hitTestText(pt) {
+            for (let i = textLayers.length - 1; i >= 0; i--) {
+                const t = textLayers[i];
+                ctx.font = `${t.bold ? 'bold ' : ''}${t.size}px '${t.font}', sans-serif`;
+                const metrics = ctx.measureText(t.text);
+                const w = metrics.width;
+                const h = t.size * 1.2;
+                if (pt.x >= t.x - w / 2 - 15 && pt.x <= t.x + w / 2 + 15 &&
+                    pt.y >= t.y - h && pt.y <= t.y + 15) {
+                    return t;
+                }
+            }
+            return null;
+        }
+
+        canvas.addEventListener('pointerdown', (e) => {
+            const pt = canvasPoint(e);
+            const hitText = hitTestText(pt);
+
+            if (hitText) {
+                dragTargetType = 'text';
+                activeTextId = hitText.id;
+                renderTextLayersUI();
+            } else if (photoQueue.length > 0) {
+                dragTargetType = 'photo';
+            } else {
+                return;
+            }
+
+            isDragging = true;
+            dragPointer = e.pointerId;
+            lastPointer = pt;
+            canvas.setPointerCapture(e.pointerId);
+            drawCanvas();
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+            if (!isDragging || e.pointerId !== dragPointer) return;
+            const pt = canvasPoint(e);
+            const dx = pt.x - lastPointer.x;
+            const dy = pt.y - lastPointer.y;
+
+            if (dragTargetType === 'text') {
+                const t = textLayers.find(x => x.id === activeTextId);
+                if (t) {
+                    t.x += dx;
+                    t.y += dy;
+                }
+            } else if (dragTargetType === 'photo') {
+                const p = photoQueue[activeQueueIndex];
+                if (p) {
+                    p.x += dx;
+                    p.y += dy;
+                }
+            }
+            lastPointer = pt;
+            drawCanvas();
+        });
+
+        function stopDrag(e) {
+            if (dragPointer !== null && (!e || e.pointerId === dragPointer)) {
+                isDragging = false;
+                try { canvas.releasePointerCapture(dragPointer); } catch(_) {}
+                dragPointer = null;
+            }
+        }
+        canvas.addEventListener('pointerup', stopDrag);
+        canvas.addEventListener('pointercancel', stopDrag);
+        canvas.addEventListener('lostpointercapture', stopDrag);
+
+        // Render Teachers Grid
         function renderTeachers() {
             const grid = document.getElementById('teachersGrid');
             grid.innerHTML = '';
@@ -554,208 +953,185 @@
                         <img src="${t.img}" alt="${t.name}" class="w-full h-full object-cover" onerror="this.style.display='none'">
                     </div>
                     <h4 class="font-bold text-sm text-white font-orbitron">${t.name}</h4>
-                    <p class="text-xs text-blue-400 mt-1">${t.role[currentLang]}</p>`;
+                    <p class="text-xs text-blue-400 mt-1 font-bengali">${t.role[currentLang]}</p>`;
                 grid.appendChild(card);
             });
         }
 
-        function loadFrame() {
-            frameImageLoaded = false;
-            const chosen = frames[selectedFrameIndex];
-            const next = new Image();
-
-            const useFallback = () => {
-                const fallbackImage = new Image();
-                fallbackImage.onload = () => {
-                    frameImage = fallbackImage;
-                    frameImageLoaded = true;
-                    drawCanvas();
-                    setStatus(hasUserPhoto ? 'Template ready. Your photo is ready to adjust.' : 'Template ready. Now upload your photo.');
-                };
-                fallbackImage.onerror = () => {
-                    frameImageLoaded = false;
-                    drawCanvas();
-                    setStatus('Could not load the selected template.', true);
-                };
-                fallbackImage.src = chosen.fallback;
-            };
-
-            next.onload = () => {
-                frameImage = next;
-                frameImageLoaded = true;
-                drawCanvas();
-                setStatus(hasUserPhoto ? 'Template loaded. Your photo is ready to adjust.' : 'Template loaded. Now upload your photo.');
-            };
-            next.onerror = useFallback;
-            next.src = chosen.path;
-        }
-
-        function resetImageTransform() {
-            if (!userImage || !userImage.naturalWidth) return;
-            const fit = Math.max(canvas.width / userImage.naturalWidth, canvas.height / userImage.naturalHeight);
-            baseW = userImage.naturalWidth * fit;
-            baseH = userImage.naturalHeight * fit;
-            imgX = (canvas.width - baseW) / 2;
-            imgY = (canvas.height - baseH) / 2;
-            scale = 1;
-            rotation = 0;
-            document.getElementById('zoomRange').value = '1';
-            document.getElementById('zoomVal').textContent = '1.00x';
-            document.getElementById('rotateRange').value = '0';
-            document.getElementById('rotateVal').textContent = '0°';
-        }
-
+        // Canvas Rendering Cycle
         function drawCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (userImage && userImage.complete && userImage.naturalWidth > 0) {
+            
+            // Background Canvas Base
+            ctx.fillStyle = '#0b0f19';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Photos in Queue
+            photoQueue.forEach((p) => {
+                if (!p.imgObj || !p.imgObj.complete) return;
                 ctx.save();
-                const centerX = imgX + baseW / 2;
-                const centerY = imgY + baseH / 2;
-                ctx.translate(centerX, centerY);
-                ctx.rotate(rotation * Math.PI / 180);
-                ctx.scale(scale, scale);
-                ctx.drawImage(userImage, -baseW / 2, -baseH / 2, baseW, baseH);
+                const cx = p.x + p.baseW / 2;
+                const cy = p.y + p.baseH / 2;
+                ctx.translate(cx, cy);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.scale((p.flipH ? -1 : 1) * p.scale, (p.flipV ? -1 : 1) * p.scale);
+                ctx.drawImage(p.imgObj, -p.baseW / 2, -p.baseH / 2, p.baseW, p.baseH);
                 ctx.restore();
-            } else {
-                ctx.fillStyle = '#0b1220';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#94a3b8';
-                ctx.textAlign = 'center';
-                ctx.font = '32px Arial';
-                ctx.fillText('Upload a photo to begin', canvas.width / 2, canvas.height / 2);
+            });
+
+            // Draw Admin Slot Boundary Box if Admin Mode is Active
+            if (adminModeActive) {
+                const slot = frames[selectedFrameIndex].slot;
+                ctx.save();
+                ctx.strokeStyle = '#f59e0b';
+                ctx.lineWidth = 4;
+                ctx.setLineDash([10, 8]);
+                ctx.strokeRect(slot.x, slot.y, slot.w, slot.h);
+                ctx.fillStyle = '#f59e0b';
+                ctx.font = '16px Orbitron';
+                ctx.fillText(`Slot Boundary: ${slot.w}x${slot.h} @ (${slot.x},${slot.y})`, slot.x + 10, slot.y + 25);
+                ctx.restore();
             }
-            if (frameImageLoaded && frameImage && frameImage.complete && frameImage.naturalWidth > 0) {
+
+            // Draw Frame Overlay
+            if (frameLoaded && frameImage && frameImage.complete && frameImage.naturalWidth > 0) {
                 ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
             }
+
+            // Draw Text Layers
+            textLayers.forEach(t => {
+                ctx.save();
+                ctx.translate(t.x, t.y);
+                ctx.rotate((t.angle || 0) * Math.PI / 180);
+                ctx.font = `${t.bold ? 'bold ' : ''}${t.italic ? 'italic ' : ''}${t.size}px '${t.font}', sans-serif`;
+                ctx.fillStyle = t.color;
+                ctx.textAlign = 'center';
+                ctx.shadowColor = 'rgba(0,0,0,0.85)';
+                ctx.shadowBlur = 8;
+                ctx.fillText(t.text, 0, 0);
+
+                // Highlight Selected Active Text with Selection Bounding Box
+                if (t.id === activeTextId) {
+                    const metrics = ctx.measureText(t.text);
+                    const w = metrics.width;
+                    const h = t.size * 1.1;
+                    ctx.strokeStyle = '#38bdf8';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([4, 4]);
+                    ctx.strokeRect(-w / 2 - 10, -h + 5, w + 20, h + 10);
+                }
+                ctx.restore();
+            });
         }
 
-        document.getElementById('imageLoader').addEventListener('change', (e) => {
-            const file = e.target.files && e.target.files[0];
+        // Admin Slot Config Application
+        function applyAdminSlotConfig() {
+            const x = Number(document.getElementById('adminSlotX').value);
+            const y = Number(document.getElementById('adminSlotY').value);
+            const w = Number(document.getElementById('adminSlotW').value);
+            const h = Number(document.getElementById('adminSlotH').value);
+            frames[selectedFrameIndex].slot = { x, y, w, h };
+            drawCanvas();
+            setStatus('Frame slot configuration saved.');
+        }
+
+        // Custom Frame Upload for Admin Mode
+        document.getElementById('customFrameUpload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
             if (!file) return;
-            if (!file.type.startsWith('image/')) {
-                setStatus('Please choose an image file (PNG, JPG, or WEBP).', true);
-                e.target.value = '';
-                return;
-            }
-            if (file.size > 10 * 1024 * 1024) {
-                setStatus('Image is larger than 10 MB. Please choose a smaller file.', true);
-                e.target.value = '';
-                return;
-            }
             const reader = new FileReader();
-            reader.onerror = () => setStatus('Could not read this image file. Try another photo.', true);
-            reader.onload = () => {
-                const next = new Image();
-                next.onload = () => {
-                    userImage = next;
-                    hasUserPhoto = true;
-                    resetImageTransform();
+            reader.onload = (evt) => {
+                const customImg = new Image();
+                customImg.onload = () => {
+                    frameImage = customImg;
+                    frameLoaded = true;
                     drawCanvas();
-                    setStatus('Photo loaded successfully. Drag it to reposition, or use zoom and rotation.');
+                    setStatus('Custom frame image loaded.');
                 };
-                next.onerror = () => setStatus('This image could not be decoded. Try a different image.', true);
-                next.src = reader.result;
+                customImg.src = evt.target.result;
             };
             reader.readAsDataURL(file);
         });
 
-        document.getElementById('zoomRange').addEventListener('input', (e) => {
-            scale = Number(e.target.value);
-            document.getElementById('zoomVal').textContent = scale.toFixed(2) + 'x';
-            drawCanvas();
-        });
-        document.getElementById('rotateRange').addEventListener('input', (e) => {
-            rotation = Number(e.target.value);
-            document.getElementById('rotateVal').textContent = rotation + '°';
-            drawCanvas();
-        });
-
-        function canvasPoint(event) {
-            const rect = canvas.getBoundingClientRect();
-            return {
-                x: (event.clientX - rect.left) * canvas.width / rect.width,
-                y: (event.clientY - rect.top) * canvas.height / rect.height
-            };
+        // Auto-Save and LocalStorage Persistence
+        function autoSaveProject() {
+            try {
+                const data = { selectedFrameIndex, textLayers };
+                localStorage.setItem('ppsc_frame_project', JSON.stringify(data));
+            } catch (e) { console.warn('Auto-save error:', e); }
         }
-        canvas.addEventListener('pointerdown', (e) => {
-            if (!hasUserPhoto) return;
-            isDragging = true;
-            dragPointer = e.pointerId;
-            lastPointer = canvasPoint(e);
-            canvas.setPointerCapture(e.pointerId);
-        });
-        canvas.addEventListener('pointermove', (e) => {
-            if (!isDragging || e.pointerId !== dragPointer) return;
-            const point = canvasPoint(e);
-            imgX += point.x - lastPointer.x;
-            imgY += point.y - lastPointer.y;
-            lastPointer = point;
-            drawCanvas();
-        });
-        function stopDragging(e) {
-            if (dragPointer !== null && (!e || e.pointerId === dragPointer)) {
-                isDragging = false;
-                try { if (canvas.hasPointerCapture(dragPointer)) canvas.releasePointerCapture(dragPointer); } catch (_) {}
-                dragPointer = null;
-            }
-        }
-        canvas.addEventListener('pointerup', stopDragging);
-        canvas.addEventListener('pointercancel', stopDragging);
-        canvas.addEventListener('lostpointercapture', stopDragging);
 
+        function restoreProject() {
+            try {
+                const saved = localStorage.getItem('ppsc_frame_project');
+                if (!saved) return;
+                const data = JSON.parse(saved);
+                if (typeof data.selectedFrameIndex === 'number') selectedFrameIndex = data.selectedFrameIndex;
+                if (Array.isArray(data.textLayers)) textLayers = data.textLayers;
+            } catch (e) { console.warn('Restore error:', e); }
+        }
+
+        function clearAllProjectData() {
+            if (!confirm('Are you sure you want to clear all project data and queue?')) return;
+            localStorage.removeItem('ppsc_frame_project');
+            photoQueue = [];
+            textLayers = [{ id: 't1', text: 'Pabna Pilot School & College', x: 540, y: 940, size: 30, color: '#ffffff', font: 'Poppins', bold: true, italic: false, angle: 0 }];
+            rebuildQueueUI();
+            renderTextLayersUI();
+            drawCanvas();
+            setStatus('Project cleared.');
+        }
+
+        // Export System
         const downloadButton = document.getElementById('downloadBtn');
         downloadButton.addEventListener('click', async () => {
-            if (!hasUserPhoto || !userImage || !userImage.complete || !userImage.naturalWidth) {
-                setStatus('Please upload a photo before downloading.', true);
+            if (!photoQueue.length) {
+                setStatus('Please upload at least one photo before downloading.', true);
                 return;
             }
-            if (!frameImageLoaded) {
-                setStatus('The template is still loading. Please try again in a moment.', true);
-                return;
-            }
-
             downloadButton.disabled = true;
-            const oldButtonHtml = downloadButton.innerHTML;
-            downloadButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing image...';
+            const oldHtml = downloadButton.innerHTML;
+            downloadButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Rendering HD Image...';
             try {
+                // Ensure admin guidelines are temporarily hidden during export
+                const prevAdminState = adminModeActive;
+                adminModeActive = false;
                 drawCanvas();
-                const blob = await new Promise((resolve, reject) => {
-                    try {
-                        canvas.toBlob(result => result ? resolve(result) : reject(new Error('Canvas export returned an empty file.')), 'image/png');
-                    } catch (error) { reject(error); }
-                });
 
-                const objectUrl = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = objectUrl;
-                link.download = 'pabna-pilot-framed-photo.png';
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                link.remove();
-                window.setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
-                setStatus('Download started. Check your browser Downloads folder.');
-            } catch (error) {
-                console.error('Photo export failed:', error);
-                let message = 'Download failed. Try Chrome or Edge and allow downloads for this page.';
-                if (error && (error.name === 'SecurityError' || /taint|origin/i.test(error.message || ''))) {
-                    message = 'Export blocked by browser security. Try the built-in templates or use frame images stored with this HTML project.';
-                }
-                setStatus(message, true);
+                const blob = await new Promise((resolve, reject) => {
+                    canvas.toBlob(b => b ? resolve(b) : reject(new Error('Export failed.')), 'image/png');
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'ppsc-framed-photo-' + Date.now() + '.png';
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 2000);
+                setStatus('Download complete!');
+
+                adminModeActive = prevAdminState;
+                drawCanvas();
+            } catch (err) {
+                console.error(err);
+                setStatus('Export error. Try again.', true);
             } finally {
                 downloadButton.disabled = false;
-                downloadButton.innerHTML = oldButtonHtml;
+                downloadButton.innerHTML = oldHtml;
             }
         });
 
-        // Initialize on load
-        window.addEventListener('DOMContentLoaded', async () => {
+        // Initialize Application on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            restoreProject();
             renderTemplates();
             renderTeachers();
-            loadFrame();
+            renderTextLayersUI();
+            loadFrameImage();
+            rebuildQueueUI();
             drawCanvas();
-            await refreshProjectFrameLibrary(true);
-            window.setInterval(() => refreshProjectFrameLibrary(true), 3000);
         });
     </script>
 </body>
