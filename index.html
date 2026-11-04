@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pabna Pilot School & College - Photo Frame Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .neon-glow { text-shadow: 0 0 10px rgba(56, 189, 248, 0.7), 0 0 20px rgba(56, 189, 248, 0.5); }
+        .dev-glow { box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 15px rgba(56, 189, 248, 0.4); }
+        .glass-panel { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+
+        :root { color-scheme: dark; }
+        body { background: radial-gradient(ellipse at 15% 0%, #142b4a 0, #080f1d 42%, #060a12 100%); }
+        .glass-panel { background: rgba(12, 24, 42, .82); border: 1px solid rgba(148,163,184,.16); box-shadow: 0 18px 55px rgba(0,0,0,.22); }
+        .tool-card { background: linear-gradient(145deg,rgba(21,39,63,.96),rgba(10,19,34,.96)); border:1px solid rgba(125,164,205,.17); border-radius:18px; padding:18px; }
+        .tool-label { display:block; color:#a9bdd4; font-size:12px; margin-bottom:7px; }
+        .tool-input { width:100%; background:#071426; color:#e5eefb; border:1px solid #29415f; border-radius:10px; padding:10px 12px; min-width:0; }
+        .tool-btn { background:#173454; border:1px solid #31577d; color:#eaf4ff; border-radius:10px; padding:9px 12px; font-size:12px; font-weight:600; }
+        .tool-btn:hover { background:#214b75; }
+        .tool-btn:disabled { opacity:.4; cursor:not-allowed; }
+        .photo-chip { display:flex; align-items:center; gap:9px; min-width:0; background:#0a192b; border:1px solid #29415f; padding:8px; border-radius:12px; }
+        .photo-chip.active { border-color:#38bdf8; box-shadow:0 0 0 1px rgba(56,189,248,.18); }
+        .photo-chip img { width:46px;height:46px;object-fit:cover;border-radius:8px;background:#14243a; }
+        .photo-chip .filename { overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px; }
+        input[type=range] { accent-color:#38bdf8; min-height:28px; }
+        button, input, select { touch-action: manipulation; }
+        .canvas-shell { width:min(100%,680px); background:#02060c; border:1px solid #29415f; border-radius:18px; padding:8px; }
+        #frameCanvas { width:100%; max-width:none; border-radius:12px; touch-action:none; }
+        @media(max-width:640px) { .tool-card{padding:14px} .photo-chip .filename{max-width:85px} }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <!-- Islamic Welcome Modal -->
+    <div id="welcomeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+        <div class="glass-panel max-w-md w-full rounded-2xl p-8 text-center shadow-2xl border border-blue-500/30 animate-pulse">
+            <div class="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-400">
+                <i class="fa-solid fa-graduation-cap text-3xl text-blue-400"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2 font-orbitron text-blue-400">Assalamu Alaikum!</h2>
+            <p class="text-slate-300 mb-6 text-sm">Welcome to the Official Photo Frame Generator Portal of <br><span class="font-semibold text-white">Pabna Pilot School & College</span></p>
+            <button onclick="closeWelcomeModal()" class="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.02] cursor-pointer">
+                Enter Portal <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="glass-panel sticky top-0 z-40 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+                    <i class="fa-solid fa-school text-xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-extrabold font-orbitron tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-cyan-400 neon-glow">
+                        PABNA PILOT SCHOOL & COLLEGE
+                    </h1>
+                    <p class="text-xs text-slate-400 tracking-widest uppercase">School Photo Frame Library</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <!-- Language Toggle Button -->
+                <button onclick="toggleLanguage()" id="langBtn" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 transition cursor-pointer">
+                    বাংলা / English
+                </button>
+                <!-- Developer Modal Button -->
+                <button onclick="openDevModal()" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-semibold rounded-lg shadow-md transition duration-300 flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-code"></i> <span data-translate="devBtn">Developer Info</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Side: Controls & Tools -->
+        <div class="lg:col-span-5 space-y-6">
+            
+            <!-- Step 1: Template Selection -->
+            <div class="glass-panel p-6 rounded-2xl shadow-xl">
+                <h2 class="text-lg font-semibold mb-4 text-blue-400 font-orbitron flex items-center gap-2">
+                    <i class="fa-solid fa-image"></i> <span data-translate="step1">1. Choose Template</span>
+                </h2>
+                <div id="templateContainer" class="grid grid-cols-2 gap-3">
+                    <!-- Project-owned templates are loaded from the frames folder -->
+                </div>
+                <p class="text-xs text-slate-400 mt-3"><i class="fa-solid fa-folder-open mr-1 text-blue-400"></i> Frames are auto-detected from the project’s frames/ folder.</p>
+            </div>
+
+
+            <!-- Universal photo manager -->
+            <section class="tool-card space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                    <h2 id="photoQueueHeading" class="text-base font-bold text-sky-300"><i class="fa-solid fa-images mr-2"></i>Photo Queue</h2>
+                    <span id="photoCount" class="text-xs text-sky-200 bg-sky-500/10 border border-sky-500/20 px-3 py-1 rounded-full">0 / 5</span>
+                </div>
+                <label id="dropZone" class="flex flex-col items-center justify-center border-2 border-dashed border-slate-600 hover:border-sky-400 rounded-xl p-5 cursor-pointer bg-slate-950/40 transition">
+                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-sky-400 mb-2"></i>
+                    <span id="addPhotosLabel" class="text-sm text-slate-200 font-semibold">Add photos (maximum 5)</span>
+                    <span class="text-xs text-slate-500 mt-1">PNG, JPG, WEBP • up to 10 MB each • drag files here</span>
+                    <input type="file" id="imageLoader" accept="image/*" multiple class="hidden">
+                </label>
+                <div id="photoQueue" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+                <p class="text-[11px] text-slate-500">Select a thumbnail to edit it. Reorder with the arrows; the queue order determines layer order (PHOTO 1 is on top). Transparent areas reveal the photos underneath.</p>
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" id="removeAllPhotos" class="tool-btn">Clear photos</button>
+                    <button type="button" id="resetPhoto" class="tool-btn">Reset selected photo</button>
+                    <button type="button" id="flipH" class="tool-btn">Flip H</button>
+                    <button type="button" id="flipV" class="tool-btn">Flip V</button>
+                </div>
+            </section>
+
+            <!-- Selected photo adjustments -->
+            <section class="tool-card space-y-3">
+                <h2 id="adjustmentsHeading" class="text-base font-bold text-sky-300"><i class="fa-solid fa-sliders mr-2"></i>Photo Adjustments</h2>
+                <div>
+                    <div class="flex justify-between text-xs text-slate-400 mb-1"><span>Zoom</span><span id="zoomVal">1.00x</span></div>
+                    <input type="range" id="zoomRange" min="0.2" max="4" step="0.05" value="1" class="w-full">
+                </div>
+                <div>
+                    <div class="flex justify-between text-xs text-slate-400 mb-1"><span>Rotation</span><span id="rotateVal">0°</span></div>
+                    <input type="range" id="rotateRange" min="-180" max="180" step="1" value="0" class="w-full">
+                </div>
+                <label class="tool-label">Photo slot <select id="slotSelect" class="tool-input mt-1"><option value="0">Slot 1</option></select></label>
+                <p class="text-[11px] text-slate-500">All photos are layered behind the frame. Select a photo to adjust it; PHOTO 1 is the top layer. Use transparent PNGs to reveal lower photos.</p>
+            </section>
+
+            <!-- Sticker & Badges Panel -->
+            <section class="tool-card space-y-3">
+                <div class="flex items-center justify-between">
+                    <h2 id="stickerHeading" class="text-base font-bold text-sky-300"><i class="fa-solid fa-icons mr-2"></i>Stickers & Badges</h2>
+                    <label class="tool-btn cursor-pointer !m-0 !py-1 !px-2">
+                        + Upload PNG
+                        <input type="file" id="stickerUploader" accept="image/png,image/webp" class="hidden">
+                    </label>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xl bg-slate-900/60 p-3 rounded-xl border border-slate-800" id="presetStickers">
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="🎓">🎓</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="⭐">⭐</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="🏆">🏆</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="🏅">🏅</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="🇧🇩">🇧🇩</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="🔥">🔥</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="❤️">❤️</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="✨">✨</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="📚">📚</button>
+                    <button class="hover:scale-125 transition cursor-pointer" data-sticker="🎉">🎉</button>
+                </div>
+                <select id="stickerSelect" class="tool-input"><option value="">Select active sticker</option></select>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="tool-label">Size<input id="stickerSize" type="range" min="20" max="250" value="80" class="w-full mt-1"></label>
+                    <label class="tool-label">Rotation<input id="stickerRotate" type="range" min="-180" max="180" value="0" class="w-full mt-1"></label>
+                </div>
+                <button type="button" id="stickerDelete" class="tool-btn w-full !bg-rose-900/40 !border-rose-700/50 hover:!bg-rose-800/60">Delete Selected Sticker</button>
+                <p class="text-[11px] text-slate-500">Drag stickers on the preview to reposition. Click on a sticker to resize or rotate.</p>
+            </section>
+
+            <!-- Text layers -->
+            <section class="tool-card space-y-3">
+                <div class="flex items-center justify-between"><h2 id="textEditorHeading" class="text-base font-bold text-sky-300"><i class="fa-solid fa-font mr-2"></i>Text Editor</h2><button type="button" id="addText" class="tool-btn">+ Add text</button></div>
+                <select id="textLayerSelect" class="tool-input"><option value="">Select text layer</option></select>
+                <input id="textValue" class="tool-input" placeholder="Type Bangla or English text">
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="tool-label">Font size<input id="textSize" type="number" min="12" max="180" value="54" class="tool-input mt-1"></label>
+                    <label class="tool-label">Text color<input id="textColor" type="color" value="#ffffff" class="tool-input mt-1 h-10"></label>
+                </div>
+                <select id="textFont" class="tool-input">
+                    <option value="Noto Sans Bengali">Noto Sans Bengali</option><option value="Hind Siliguri">Hind Siliguri</option>
+                    <option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Poppins">Poppins</option>
+                </select>
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" id="textBold" class="tool-btn">Bold</button><button type="button" id="textItalic" class="tool-btn">Italic</button>
+                    <button type="button" id="textAboveFrame" class="tool-btn" aria-pressed="false">Text above frame: Off</button>
+                    <button type="button" id="textDelete" class="tool-btn">Delete text</button>
+                </div>
+                <p class="text-[11px] text-slate-500">Drag text on the preview to reposition it. Text remains editable until export.</p>
+            </section>
+            <section class="tool-card space-y-3">
+                <h2 id="historyHeading" class="text-base font-bold text-sky-300"><i class="fa-solid fa-clock-rotate-left mr-2"></i>Project History</h2>
+                <div class="flex flex-wrap gap-2"><button type="button" id="undoBtn" class="tool-btn">Undo</button><button type="button" id="redoBtn" class="tool-btn">Redo</button><button type="button" id="clearProject" class="tool-btn">Clear project</button></div>
+                <p id="saveStatus" class="text-[11px] text-slate-500">Project autosave is ready.</p>
+            </section>
+
+            <!-- Download Button -->
+            <button id="downloadBtn" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/30 transition duration-300 flex items-center justify-center gap-3 text-lg cursor-pointer">
+                <i class="fa-solid fa-download"></i> <span data-translate="downloadBtn">Download Framed Photo</span>
+            </button>
+            <button id="downloadJpgBtn" class="tool-btn w-full mt-2 py-3"><i class="fa-regular fa-image mr-2"></i>Export JPG</button>
+
+        </div>
+
+        <!-- Right Side: Live Canvas Preview -->
+        <div class="lg:col-span-7 flex flex-col items-center justify-center glass-panel p-6 rounded-2xl shadow-xl min-h-[450px]">
+            <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 font-orbitron" data-translate="previewLbl">Live Preview Area</h2>
+            <div class="canvas-shell relative max-w-full overflow-hidden">
+                <!-- Canvas Element -->
+                <canvas id="frameCanvas" width="1080" height="1080" class="block w-full max-w-[500px] h-auto aspect-square object-contain cursor-grab active:cursor-grabbing touch-none"></canvas>
+                <p id="canvasStatus" class="text-xs text-amber-300 mt-2 text-center">Choose a template and upload your photo.</p>
+            </div>
+            <p class="text-xs text-slate-400 mt-3 text-center"><i class="fa-solid fa-circle-info mr-1 text-blue-400"></i> <span data-translate="tipText">You can drag photos, text, and stickers inside canvas to reposition them.</span></p>
+        </div>
+
+    </main>
+
+    <!-- Teachers & Faculty Section (20+ Faculty Support) -->
+    <section class="max-w-7xl mx-auto px-4 py-8 w-full">
+        <h2 class="text-2xl font-bold font-orbitron text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-300">
+            <span data-translate="facultyTitle">Our Honourable Teachers....</span>
+        </h2>
+        <div id="teachersGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <!-- Dynamic Teachers injected via JS -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-slate-800 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400">
+            <p>© 2026 Pabna Pilot School & College. All Rights Reserved.</p>
+            <p class="mt-1">Developed with <i class="fa-solid fa-heart text-red-500 mx-1"></i> by <span class="text-blue-400 font-semibold">MD Sadid Hasan Sajid</span></p>
+        </div>
+    </footer>
+
+    <!-- Developer Modal -->
+    <div id="devModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+        <div class="glass-panel max-w-lg w-full rounded-3xl p-8 shadow-2xl dev-glow relative border border-purple-500/40 text-center">
+            <button onclick="closeDevModal()" class="absolute top-4 right-4 w-10 h-10 bg-slate-800 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="relative w-32 h-32 mx-auto mb-4 rounded-full p-1 bg-gradient-to-tr from-purple-500 via-pink-500 to-blue-500 shadow-xl cursor-pointer" onclick="openDevImagePreview()">
+                <!-- Developer Photo loaded from images folder -->
+                <img src="images/developer.jpg" alt="MD Sadid Hasan Sajid" class="w-full h-full object-cover rounded-full bg-slate-900" onerror="this.src='https://via.placeholder.com/150/0f172a/38bdf8?text=SAJID'">
+            </div>
+            <h3 class="text-2xl font-bold font-orbitron text-white neon-glow">MD Sadid Hasan Sajid</h3>
+            <p class="text-xs text-purple-400 tracking-wider uppercase mb-4">Lead Full-Stack Developer & Creator</p>
+            <p class="text-slate-300 text-sm mb-6 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                Passionate developer building high-performance web applications, tools, and digital systems. Creator of the RED-BEAST suite and advanced automation workflows.
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="https://wa.me/+8801732161779" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg transition">
+    <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+</a>
+
+<a href="mailto:x@sajidx.cyou" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg transition">
+    <i class="fa-solid fa-envelope text-sm"></i> Email
+</a>
+
+<a href="https://www.facebook.com/PrinceSajidOfficial136" target="_blank" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg transition">
+    <i class="fa-brands fa-facebook text-sm"></i> Facebook
+</a>
+
+<!-- Biodata Button (Same Tab) -->
+<a href="https://sajid-tech971.github.io/MY-BIO/" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg transition">
+    <i class="fa-solid fa-address-card text-sm"></i> BIO
+</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Image Zoom Preview Modal (With Teacher Links) -->
+    <div id="imagePreviewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/85 backdrop-blur-md p-4" onclick="closeImagePreview()">
+        <div class="relative max-w-sm w-full glass-panel p-6 rounded-3xl border border-blue-500/40 text-center shadow-2xl" onclick="event.stopPropagation()">
+            <button onclick="closeImagePreview()" class="absolute -top-3 -right-3 w-9 h-9 bg-slate-800 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition cursor-pointer shadow-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-64 h-64 mx-auto my-3 rounded-2xl overflow-hidden border-2 border-blue-400 shadow-inner bg-slate-900">
+                <img id="previewImgSrc" src="" alt="Zoomed Preview" class="w-full h-full object-cover">
+            </div>
+            <h3 id="previewImgTitle" class="text-base font-bold text-white font-orbitron mt-2"></h3>
+            
+            <!-- Dynamic Social Buttons Container -->
+            <div id="previewSocialContainer" class="flex flex-wrap justify-center gap-2 mt-4"></div>
+        </div>
+    </div>
+
+    <!-- Audio Elements for Background & Developer Music -->
+    <audio id="bgMusic" style="display:none;" loop></audio>
+    <audio id="devMusic" style="display:none;" loop></audio>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Language Dictionary
+        const langData = {
+            en: {
+                devBtn: "Developer Info",
+                step1: "1. Choose Template",
+                step2: "2. Upload Your Photo",
+                uploadText: "Click here to select photo",
+                step3: "3. Adjust Image",
+                zoomLbl: "Zoom Scale",
+                rotateLbl: "Rotation Angle",
+                downloadBtn: "Download Framed Photo",
+                previewLbl: "Live Preview Area",
+                tipText: "You can drag photos, text, and stickers inside canvas to reposition them.",
+                facultyTitle: "Our Honourable Teachers...."
+            },
+            bn: {
+                devBtn: "ডেভেলপার তথ্য",
+                step1: "১. টেমপ্লেট নির্বাচন করুন",
+                step2: "২. আপনার ছবি আপলোড করুন",
+                uploadText: "ছবি সিলেক্ট করতে এখানে ক্লিক করুন",
+                step3: "৩. ছবি অ্যাডজাস্ট করুন",
+                zoomLbl: "জুম সাইজ",
+                rotateLbl: "ঘোরানোর কোণ",
+                downloadBtn: "ফ্রেমসহ ছবি ডাউনলোড করুন",
+                previewLbl: "লাইভ প্রিভিউ এরিয়া",
+                tipText: "ছবি, টেক্সট এবং স্টিকার ড্র্যাগ করে ক্যানভাসে পজিশন ঠিক করতে পারেন।",
+                facultyTitle: "আমাদের সম্মানিত শিক্ষকবৃন্দ"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'bn' : 'en';
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if(langData[currentLang][key]) {
+                    el.innerText = langData[currentLang][key];
+                }
+            });
+            renderTemplates();
+            renderTeachers();
+        }
+
+        function applyEditorLanguage() {
+            const bn = currentLang === 'bn';
+            const copy = bn ? {
+                photoQueueHeading:'ছবির তালিকা', addPhotosLabel:'ছবি যোগ করুন (সর্বোচ্চ ৫টি)',
+                adjustmentsHeading:'ছবি সম্পাদনা', textEditorHeading:'টেক্সট এডিটর',
+                historyHeading:'প্রজেক্ট হিস্ট্রি', removeAllPhotos:'সব ছবি মুছুন',
+                resetPhoto:'ছবি রিসেট', addText:'টেক্সট যোগ করুন', textDelete:'টেক্সট মুছুন',
+                undoBtn:'পূর্বাবস্থায়', redoBtn:'আবার করুন', clearProject:'প্রজেক্ট পরিষ্কার',
+                downloadJpgBtn:'JPG এক্সপোর্ট', stickerHeading:'স্টিকার ও ব্যাজ'
+            } : {
+                photoQueueHeading:'Photo Queue', addPhotosLabel:'Add photos (maximum 5)',
+                adjustmentsHeading:'Photo Adjustments', textEditorHeading:'Text Editor',
+                historyHeading:'Project History', removeAllPhotos:'Clear photos',
+                resetPhoto:'Reset selected photo', addText:'+ Add text', textDelete:'Delete text',
+                undoBtn:'Undo', redoBtn:'Redo', clearProject:'Clear project',
+                downloadJpgBtn:'Export JPG', stickerHeading:'Stickers & Badges'
+            };
+            Object.entries(copy).forEach(([id,value])=>{const el=$(id);if(el){if(id==='downloadJpgBtn')el.innerHTML='<i class="fa-regular fa-image mr-2"></i>'+value;else el.textContent=value;}});
+        }
+
+        // Welcome Modal Control
+        function closeWelcomeModal() {
+            document.getElementById('welcomeModal').style.display = 'none';
+        }
+
+        // Developer Modal Control with Music Switch Logic
+        function openDevModal() {
+            document.getElementById('devModal').style.display = 'flex';
+            const bg = document.getElementById('bgMusic');
+            const dev = document.getElementById('devMusic');
+            if (!bg.paused) { bg.pause(); bg.dataset.wasPlaying = "true"; }
+            dev.currentTime = 0;
+            dev.play().catch(e => console.log("Dev music play blocked:", e));
+        }
+        function closeDevModal() {
+            document.getElementById('devModal').style.display = 'none';
+            const bg = document.getElementById('bgMusic');
+            const dev = document.getElementById('devMusic');
+            dev.pause();
+            if (bg.dataset.wasPlaying === "true") {
+                bg.play().catch(e => console.log("BGM resume blocked:", e));
+            }
+        }
+
+        // Image Click Popup Preview Functions
+        function openTeacherPreview(index) {
+            const t = teachers[index];
+            if (!t) return;
+
+            document.getElementById('previewImgSrc').src = t.img;
+            document.getElementById('previewImgTitle').innerText = t.name + ' - ' + t.role[currentLang];
+
+            const socialContainer = document.getElementById('previewSocialContainer');
+            socialContainer.innerHTML = '';
+
+            if (t.facebook && t.facebook.trim() !== "") {
+                const fbBtn = document.createElement('a');
+                fbBtn.href = t.facebook;
+                fbBtn.target = '_blank';
+                fbBtn.className = 'px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
+                fbBtn.innerHTML = '<i class="fa-brands fa-facebook"></i> Facebook';
+                socialContainer.appendChild(fbBtn);
+            }
+
+            if (t.whatsapp && t.whatsapp.trim() !== "") {
+                const waBtn = document.createElement('a');
+                waBtn.href = t.whatsapp.startsWith('http') ? t.whatsapp : `https://wa.me/${t.whatsapp}`;
+                waBtn.target = '_blank';
+                waBtn.className = 'px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
+                waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i> WhatsApp';
+                socialContainer.appendChild(waBtn);
+            }
+
+            if (t.email && t.email.trim() !== "") {
+                const mailBtn = document.createElement('a');
+                mailBtn.href = t.email.startsWith('mailto:') ? t.email : `mailto:${t.email}`;
+                mailBtn.className = 'px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition';
+                mailBtn.innerHTML = '<i class="fa-solid fa-envelope"></i> Email';
+                socialContainer.appendChild(mailBtn);
+            }
+
+            document.getElementById('imagePreviewModal').style.display = 'flex';
+        }
+
+        function openDevImagePreview() {
+            document.getElementById('previewImgSrc').src = 'images/developer.jpg';
+            document.getElementById('previewImgTitle').innerText = 'MD Sadid Hasan Sajid';
+            const socialContainer = document.getElementById('previewSocialContainer');
+            socialContainer.innerHTML = `
+                <a href="https://www.facebook.com/PrinceSajidOfficial136" target="_blank" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                <a href="https://wa.me/+8801732161779" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                <a href="mailto:x@sajidx.cyou" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition"><i class="fa-solid fa-envelope"></i> Email</a>
+            `;
+            document.getElementById('imagePreviewModal').style.display = 'flex';
+
+            // Switch BGM to Dev Music
+            const bg = document.getElementById('bgMusic');
+            const dev = document.getElementById('devMusic');
+            if (!bg.paused) { bg.pause(); bg.dataset.wasPlaying = "true"; }
+            dev.currentTime = 0;
+            dev.play().catch(e => console.log("Dev music play blocked:", e));
+        }
+
+        function closeImagePreview() {
+            document.getElementById('imagePreviewModal').style.display = 'none';
+            const bg = document.getElementById('bgMusic');
+            const dev = document.getElementById('devMusic');
+            dev.pause();
+            if (bg.dataset.wasPlaying === "true") {
+                bg.play().catch(e => console.log("BGM resume blocked:", e));
+            }
+        }
+
+        function makeFallbackFrame(index) {
+            const themes = [
+                { a: '#38bdf8', b: '#fbbf24', title: 'PABNA PILOT SCHOOL & COLLEGE', sub: 'OFFICIAL PHOTO FRAME' },
+                { a: '#22d3ee', b: '#a78bfa', title: 'SCIENCE & TECHNOLOGY', sub: 'DREAM • DISCOVER • CREATE' },
+                { a: '#ef4444', b: '#22c55e', title: 'VICTORY DAY', sub: 'HONOUR • COURAGE • FREEDOM' },
+                { a: '#16a34a', b: '#dc2626', title: 'INDEPENDENCE DAY', sub: 'BANGLADESH • 26 MARCH' },
+                { a: '#f472b6', b: '#facc15', title: 'INTERNATIONAL MOTHER LANGUAGE DAY', sub: 'LANGUAGE • CULTURE • PRIDE' },
+                { a: '#fb923c', b: '#38bdf8', title: 'SPORTS CARNIVAL', sub: 'PLAY • TEAMWORK • EXCELLENCE' },
+                { a: '#c084fc', b: '#fb7185', title: 'CULTURAL FESTIVAL', sub: 'ART • MUSIC • TRADITION' },
+                { a: '#60a5fa', b: '#fbbf24', title: 'GRADUATION', sub: 'A NEW CHAPTER BEGINS' },
+                { a: '#34d399', b: '#22d3ee', title: 'ROBOTICS & CODING', sub: 'IMAGINE • BUILD • INNOVATE' },
+                { a: '#fbbf24', b: '#a78bfa', title: 'ALUMNI REUNION', sub: 'ONE SCHOOL • MANY MEMORIES' },
+                { a: '#2dd4bf', b: '#60a5fa', title: 'ADMISSION OPEN', sub: 'LEARN • LEAD • SUCCEED' },
+                { a: '#e2e8f0', b: '#64748b', title: 'PPS&C • PREMIUM', sub: 'TIMELESS • CLASSIC • CLEAN' }
+            ];
+            const t = themes[index] || themes[0];
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+              <defs>
+                <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${t.a}"/><stop offset="1" stop-color="${t.b}"/></linearGradient>
+                <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#07152b" stop-opacity=".97"/><stop offset=".5" stop-color="#102747" stop-opacity=".90"/><stop offset="1" stop-color="#07152b" stop-opacity=".97"/></linearGradient>
+              </defs>
+              <rect x="12" y="12" width="1056" height="1056" rx="34" fill="none" stroke="url(#edge)" stroke-width="18"/>
+              <rect x="35" y="35" width="1010" height="1010" rx="24" fill="none" stroke="${t.a}" stroke-opacity=".65" stroke-width="3"/>
+              <path d="M35 175 H1045 V35 H35 Z M35 905 H1045 V1045 H35 Z" fill="url(#bar)"/>
+              <path d="M50 190 H1030 M50 890 H1030" stroke="url(#edge)" stroke-width="5"/>
+              <circle cx="82" cy="100" r="22" fill="none" stroke="${t.b}" stroke-width="5"/><circle cx="998" cy="100" r="22" fill="none" stroke="${t.b}" stroke-width="5"/>
+              <text x="540" y="91" text-anchor="middle" fill="${t.a}" font-family="Arial,sans-serif" font-size="29" font-weight="700" letter-spacing="2">${t.title}</text>
+              <text x="540" y="137" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="22" letter-spacing="4">${t.sub}</text>
+              <text x="540" y="965" text-anchor="middle" fill="#ffffff" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="3">PABNA • BANGLADESH</text>
+              <text x="540" y="1008" text-anchor="middle" fill="${t.b}" font-family="Arial,sans-serif" font-size="18" letter-spacing="2">MAKE EVERY MOMENT COUNT</text>
+              <path d="M70 225 h35 M70 225 v35 M1010 225 h-35 M1010 225 v35 M70 855 h35 M70 855 v-35 M1010 855 h-35 M1010 855 v-35" stroke="url(#edge)" stroke-width="7" fill="none" stroke-linecap="round"/>
+            </svg>`;
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        }
+
+        let frames = [
+            { id: 'f01', name: 'School Official', path: 'frames/frame01.svg', fallback: makeFallbackFrame(0) },
+            { id: 'f02', name: 'Science & Technology', path: 'frames/frame02.svg', fallback: makeFallbackFrame(1) },
+            { id: 'f03', name: 'Victory Day', path: 'frames/frame03.svg', fallback: makeFallbackFrame(2) },
+            { id: 'f04', name: 'Independence Day', path: 'frames/frame04.svg', fallback: makeFallbackFrame(3) },
+            { id: 'f05', name: 'Language Day', path: 'frames/frame05.svg', fallback: makeFallbackFrame(4) },
+            { id: 'f06', name: 'Sports Carnival', path: 'frames/frame06.svg', fallback: makeFallbackFrame(5) },
+            { id: 'f07', name: 'Cultural Festival', path: 'frames/frame07.svg', fallback: makeFallbackFrame(6) },
+            { id: 'f08', name: 'Graduation', path: 'frames/frame08.svg', fallback: makeFallbackFrame(7) },
+            { id: 'f09', name: 'Robotics & Coding', path: 'frames/frame09.svg', fallback: makeFallbackFrame(8) },
+            { id: 'f10', name: 'Alumni Reunion', path: 'frames/frame10.svg', fallback: makeFallbackFrame(9) },
+            { id: 'f11', name: 'Admission Season', path: 'frames/frame11.svg', fallback: makeFallbackFrame(10) },
+            { id: 'f12', name: 'Premium Dark', path: 'frames/frame12.svg', fallback: makeFallbackFrame(11) }
+        ];
+
+        function friendlyFrameName(filename) {
+            return filename.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ')
+                .replace(/\s+/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
+        }
+
+        async function refreshProjectFrameLibrary(silent = false) {
+            try {
+                const isLocalServer = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
+                let response = await fetch(isLocalServer ? '/api/frames' : './frames.json', { cache: 'no-store' });
+                let data = null;
+                if (!response.ok && isLocalServer) response = await fetch('./frames.json', { cache: 'no-store' });
+                if (!response.ok) throw new Error('Could not load the project frame manifest');
+                data = await response.json();
+                if (!Array.isArray(data.frames) || data.frames.length === 0) {
+                    if (!silent) setStatus('No frames found. Add image files to the frames folder and redeploy.', true);
+                    return;
+                }
+                const nextFrames = data.frames.map((item, index) => ({
+                    id: 'project-' + (item.filename || item.path || index),
+                    name: item.name || friendlyFrameName(item.filename || item.path || ('Frame ' + (index + 1))),
+                    path: item.path || ('frames/' + item.filename),
+                    fallback: makeFallbackFrame(index % 12),
+                    photoSlots: Array.isArray(item.photoSlots) ? item.photoSlots : undefined
+                }));
+                const signature = list => list.map(f => f.path + '|' + f.name).join('\n');
+                if (signature(frames) === signature(nextFrames)) return;
+                const currentPath = frames[selectedFrameIndex]?.path;
+                frames = nextFrames;
+                const foundIndex = frames.findIndex(f => f.path === currentPath);
+                selectedFrameIndex = foundIndex >= 0 ? foundIndex : 0;
+                renderTemplates();
+                await loadFrame();
+                if (!silent) setStatus('Frame library refreshed: ' + frames.length + ' frame(s) found.');
+            } catch (error) {
+                if (!silent) {
+                    console.warn('Frame library load failed:', error);
+                    setStatus('Could not load the frame list. Check frames.json or run the local server.', true);
+                }
+            }
+        }
+
+        let selectedFrameIndex = 0;
+
+        const teachers = [
+            { 
+                name: "Ikramul Haque", 
+                role: { en: "Chairman PPSC", bn: "চেয়ারম্যান, পি পি এস সি" }, 
+                img: "images/ikram.jpeg",
+                facebook: "https://www.facebook.com/Ikram.pabna6544",
+                whatsapp: "+8801712406544",
+                email: ""
+            },
+            { 
+                name: "Rashidul Islam Rashed", 
+                role: { en: "Principal", bn: "প্রধান শিক্ষক" }, 
+                img: "images/rashed.jpg",
+                facebook: "https://www.facebook.com/rashed.pabna87",
+                whatsapp: "+8801718780699",
+                email: ""
+            },
+            { 
+                name: "Amit Chanda", 
+                role: { en: "Chemistry & Higher Math Teacher", bn: "রসায়ন ও উচ্চতর গণিত শিক্ষক" }, 
+                img: "images/amit.jpg",
+                facebook: "https://www.facebook.com/amit.chanda.908945",
+                whatsapp: "@Amit200535",
+                email: ""
+            },
+            { 
+                name: "Rifat Munshi", 
+                role: { en: "Math Teacher", bn: "গণিত শিক্ষক" }, 
+                img: "images/rifat.jpeg",
+                facebook: "https://www.facebook.com/rifat.munshi.165393",
+                whatsapp: "+8801742471782",
+                email: ""
+            },
+            { 
+                name: "Mp Saidul", 
+                role: { en: "Asst. Teacher (BGS)", bn: "সহকারী শিক্ষক (বিজিএস)" }, 
+                img: "images/saidul.jpeg",
+                facebook: "https://www.facebook.com/mp.saidul",
+                whatsapp: "",
+                email: ""
+            },
+            { 
+                name: "KM Tawhid", 
+                role: { en: "Physics Teacher", bn: "পদার্থবিজ্ঞানের শিক্ষক" }, 
+                img: "images/KM Tawhid.jpg",
+                facebook: "https://www.facebook.com/touhid.n.khan.14019",
+                whatsapp: "+8801521441957",
+                email: ""
+            },
+            { 
+                name: "MD Arif Hossen", 
+                role: { en: "English Teacher", bn: "ইংরেজি শিক্ষক" }, 
+                img: "images/arif.jpg",
+                facebook: "https://www.facebook.com/mdarifhossen01",
+                whatsapp: "+8801775488302",
+                email: ""
+            },
+            { 
+                name: "Marzan Shawon", 
+                role: { en: "Asst. Teacher (English)", bn: "সহকারী শিক্ষক (ইংরেজি)" }, 
+                img: "images/shawon.jpeg",
+                facebook: "https://www.facebook.com/marzan.shawon?comment_id=Y29tbWVudDoxMjIxOTY1NjQzMjA5Mzk3OTVfMTQzOTk5ODIzODIyMDY2Mg%3D%3D",
+                whatsapp: "+8801758600334",
+                email: ""
+            },
+            { 
+                name: "SM Tanjila", 
+                role: { en: "Asst. Teacher (Geography)", bn: "সহকারী শিক্ষক (ভূগোল)" }, 
+                img: "images/tanjila.jpeg",
+                facebook: "https://www.facebook.com/s.m.tanjila.2025",
+                whatsapp: "",
+                email: ""
+            }
+        ];
+
+        const canvas = document.getElementById('frameCanvas');
+        const ctx = canvas.getContext('2d', { alpha: true });
+        const statusEl = document.getElementById('canvasStatus');
+        let frameImage = new Image(), frameImageLoaded = false;
+        let photoQueue = [];
+        let selectedPhotoId = null;
+        let selectedSlotIndex = 0;
+        let textLayers = [];
+        let selectedTextId = null;
+        let stickers = [];
+        let selectedStickerId = null;
+        let dragState = null;
+        let history = [], historyIndex = -1;
+        let autosaveTimer = null;
+        const MAX_PHOTOS = 5;
+        const $ = id => document.getElementById(id);
+        const uid = () => 'id-' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+        const activePhoto = () => photoQueue.find(p => p.id === selectedPhotoId) || null;
+        const currentFrame = () => frames[selectedFrameIndex] || null;
+        const frameSlots = () => {
+            const raw = currentFrame()?.photoSlots;
+            if (Array.isArray(raw) && raw.length) return raw.slice(0,5).map((s,i)=>({
+                id:s.id || `slot${i+1}`, x:Number(s.x)||0, y:Number(s.y)||0,
+                width:Number(s.width)||1080, height:Number(s.height)||1080
+            }));
+            return [{id:'slot1',x:0,y:0,width:1080,height:1080}];
+        };
+
+        function setStatus(message, error=false) {
+            if (!statusEl) return;
+            statusEl.textContent=message;
+            statusEl.className='text-xs mt-2 text-center '+(error?'text-red-300':'text-emerald-300');
+        }
+
+        function escapeHtml(v) { return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+        
+        function fitPhoto(photo, slot) {
+            const im=photo.img;
+            const fit=Math.max(slot.width/im.naturalWidth,slot.height/im.naturalHeight);
+            photo.transform={x:slot.x+(slot.width-im.naturalWidth*fit)/2,y:slot.y+(slot.height-im.naturalHeight*fit)/2,
+                baseW:im.naturalWidth*fit,baseH:im.naturalHeight*fit,scale:1,rotation:0,flipX:1,flipY:1};
+        }
+
+        function renderTemplates() {
+            const container=$('templateContainer'); container.innerHTML='';
+            frames.forEach((frame,idx)=>{
+                const btn=document.createElement('button'); btn.type='button';
+                btn.className=`p-3 rounded-xl border text-left cursor-pointer transition flex items-center gap-3 ${idx===selectedFrameIndex?'border-sky-400 bg-sky-600/15':'border-slate-700 bg-slate-900/50 hover:border-slate-500'}`;
+                const thumb=document.createElement('img'); thumb.src=frame.path; thumb.onerror=()=>{thumb.onerror=null;thumb.src=frame.fallback||makeFallbackFrame(idx%12)};
+                thumb.className='w-12 h-12 rounded-lg object-cover border border-slate-700 bg-slate-900';
+                const copy=document.createElement('div'); copy.className='min-w-0';
+                copy.innerHTML=`<p class="text-xs font-semibold text-slate-100 truncate">${escapeHtml(frame.name)}</p><p class="text-[10px] text-slate-500">Template ${String(idx+1).padStart(2,'0')}</p>`;
+                btn.append(thumb,copy); btn.addEventListener('click',()=>{selectedFrameIndex=idx;refitQueueToCurrentOrder();renderTemplates();loadFrame();});
+                container.appendChild(btn);
+            });
+        }
+
+        function renderTeachers() {
+            const grid=$('teachersGrid'); grid.innerHTML='';
+            teachers.forEach((t,idx)=>{
+                const card=document.createElement('div'); card.className='glass-panel p-4 rounded-2xl text-center shadow-lg border border-slate-800 hover:border-blue-500/50 transition';
+                card.innerHTML=`<div onclick="openTeacherPreview(${idx})" class="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border-2 border-blue-500/40 bg-slate-900 cursor-pointer"><img src="${escapeHtml(t.img)}" alt="${escapeHtml(t.name)}" class="w-full h-full object-cover" onerror="this.style.display='none'"></div><h4 class="font-bold text-sm text-white">${escapeHtml(t.name)}</h4><p class="text-xs text-blue-400 mt-1">${escapeHtml(t.role[currentLang])}</p>`;
+                grid.appendChild(card);
+            });
+        }
+
+        async function loadFrame() {
+            const chosen=currentFrame(); if(!chosen) return;
+            frameImageLoaded=false;
+            const im=new Image();
+            im.onload=()=>{frameImage=im;frameImageLoaded=true;updateSlotSelect();drawCanvas();setStatus('Frame ready. Select or add photos to begin editing.');};
+            im.onerror=()=>{const fallback=new Image();fallback.onload=()=>{frameImage=fallback;frameImageLoaded=true;updateSlotSelect();drawCanvas();setStatus('Frame preview loaded using its built-in fallback.');};fallback.onerror=()=>{drawCanvas();setStatus('Could not load this frame image.',true);};fallback.src=chosen.fallback||makeFallbackFrame(selectedFrameIndex%12);};
+            im.src=chosen.path;
+        }
+
+        function updateSlotSelect() {
+            const sel=$('slotSelect'), slots=frameSlots(); sel.innerHTML='';
+            slots.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${i+1}. ${s.id}`;sel.appendChild(o);});
+            selectedSlotIndex=Math.min(selectedSlotIndex,slots.length-1);sel.value=selectedSlotIndex;
+        }
+
+        function slotForPhoto(index) { return {id:'layer'+(index+1),x:0,y:0,width:canvas.width,height:canvas.height}; }
+        function refitQueueToCurrentOrder() {
+            photoQueue.forEach((photo,index)=>fitPhoto(photo,slotForPhoto(index)));
+        }
+
+        function renderQueue() {
+            const q=$('photoQueue');q.innerHTML='';$('photoCount').textContent=`${photoQueue.length} / ${MAX_PHOTOS}`;
+            photoQueue.forEach((p,i)=>{
+                const item=document.createElement('div');item.className='photo-chip'+(p.id===selectedPhotoId?' active':'');
+                item.draggable=true;item.dataset.id=p.id;
+                const im=document.createElement('img');im.src=p.dataUrl;im.alt='';
+                const info=document.createElement('div');info.className='min-w-0 flex-1';
+                info.innerHTML=`<div class="text-[10px] text-sky-300 font-bold">PHOTO ${i+1}</div><div class="filename text-xs text-slate-200">${escapeHtml(p.name)}</div>`;
+                const controls=document.createElement('div');controls.className='flex flex-col gap-1';
+                controls.innerHTML=`<button class="tool-btn !p-1" data-act="up" aria-label="Move up">↑</button><button class="tool-btn !p-1" data-act="down" aria-label="Move down">↓</button><button class="tool-btn !p-1" data-act="replace">↻</button><button class="tool-btn !p-1" data-act="remove">×</button>`;
+                item.append(im,info,controls);
+                item.addEventListener('click',e=>{if(e.target.closest('button'))return;selectedPhotoId=p.id;selectedTextId=null;selectedStickerId=null;syncAdjustments();renderQueue();drawCanvas();});
+                controls.addEventListener('click',e=>{
+                    const act=e.target.dataset.act;if(!act)return;const at=photoQueue.findIndex(x=>x.id===p.id);
+                    if(act==='up'&&at>0)[photoQueue[at-1],photoQueue[at]]=[photoQueue[at],photoQueue[at-1]];
+                    if(act==='down'&&at<photoQueue.length-1)[photoQueue[at+1],photoQueue[at]]=[photoQueue[at],photoQueue[at+1]];
+                    if(act==='remove'){photoQueue.splice(at,1);if(selectedPhotoId===p.id)selectedPhotoId=photoQueue[0]?.id||null;}
+                    if(act==='replace') openReplacePicker(p.id);
+                    refitQueueToCurrentOrder();renderQueue();drawCanvas();saveSoon();pushHistory();
+                });
+                let touchTargetId = null;
+                item.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){item.setPointerCapture(e.pointerId);touchTargetId=p.id;}});
+                item.addEventListener('pointermove',e=>{
+                    if(e.pointerType!=='touch'||!touchTargetId)return;
+                    document.querySelectorAll('.photo-chip').forEach(el=>el.classList.remove('border-sky-400'));
+                    const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('.photo-chip');
+                    if(target){target.classList.add('border-sky-400');item.dataset.touchTarget=target.dataset.id;}
+                });
+                item.addEventListener('pointerup',e=>{
+                    if(e.pointerType!=='touch'||!touchTargetId)return;
+                    const targetId=item.dataset.touchTarget;delete item.dataset.touchTarget;touchTargetId=null;
+                    if(targetId&&targetId!==p.id){const from=photoQueue.findIndex(x=>x.id===p.id),to=photoQueue.findIndex(x=>x.id===targetId);if(from>=0&&to>=0){const [m]=photoQueue.splice(from,1);photoQueue.splice(to,0,m);refitQueueToCurrentOrder();renderQueue();drawCanvas();saveSoon();pushHistory();}}
+                    document.querySelectorAll('.photo-chip').forEach(el=>el.classList.remove('border-sky-400'));
+                });
+                item.addEventListener('pointercancel',()=>{touchTargetId=null;delete item.dataset.touchTarget;});
+                item.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',p.id);e.dataTransfer.effectAllowed='move';});
+                item.addEventListener('dragover',e=>{e.preventDefault();item.classList.add('border-sky-400');});
+                item.addEventListener('dragleave',()=>item.classList.remove('border-sky-400'));
+                item.addEventListener('drop',e=>{e.preventDefault();item.classList.remove('border-sky-400');const from=photoQueue.findIndex(x=>x.id===e.dataTransfer.getData('text/plain'));const to=photoQueue.findIndex(x=>x.id===p.id);if(from>=0&&to>=0&&from!==to){const [m]=photoQueue.splice(from,1);photoQueue.splice(to,0,m);refitQueueToCurrentOrder();renderQueue();drawCanvas();saveSoon();pushHistory();}});
+                q.appendChild(item);
+            });
+            $('removeAllPhotos').disabled=!photoQueue.length;
+        }
+
+        function openReplacePicker(id) {
+            const input=document.createElement('input');input.type='file';input.accept='image/*';
+            input.onchange=()=>{if(input.files[0])readPhotoFile(input.files[0],id);};input.click();
+        }
+
+        function readPhotoFile(file,replaceId=null) {
+            if(!file||!file.type.startsWith('image/')){setStatus('Choose a valid image file.',true);return;}
+            if(file.size>10*1024*1024){setStatus('Each image must be 10 MB or smaller.',true);return;}
+            if(!replaceId&&photoQueue.length>=MAX_PHOTOS){setStatus('Maximum five photos are allowed. Remove one before adding another.',true);return;}
+            const reader=new FileReader();
+            reader.onerror=()=>setStatus('Could not read this image file.',true);
+            reader.onload=()=>{const im=new Image();im.onload=()=>{
+                if(replaceId){const old=photoQueue.find(x=>x.id===replaceId);if(!old)return;old.name=file.name;old.dataUrl=reader.result;old.img=im;fitPhoto(old,slotForPhoto(photoQueue.indexOf(old)));selectedPhotoId=old.id;}
+                else {const p={id:uid(),name:file.name,dataUrl:reader.result,img:im,transform:null};fitPhoto(p,slotForPhoto(photoQueue.length));photoQueue.push(p);selectedPhotoId=p.id;}
+                renderQueue();syncAdjustments();drawCanvas();saveSoon();pushHistory();setStatus('Photo added to your queue.');
+            };im.onerror=()=>setStatus('This image could not be decoded.',true);im.src=reader.result;};reader.readAsDataURL(file);
+        }
+
+        function syncAdjustments(){const p=activePhoto();const t=p?.transform;if(!t)return;$('zoomRange').value=t.scale;$('zoomVal').textContent=t.scale.toFixed(2)+'x';$('rotateRange').value=t.rotation;$('rotateVal').textContent=t.rotation+'°';}
+
+        function drawPhoto(photo,slot) {
+            if(!photo?.img?.complete||!photo.img.naturalWidth)return;
+            const t=photo.transform;ctx.save();ctx.beginPath();ctx.rect(slot.x,slot.y,slot.width,slot.height);ctx.clip();
+            const cx=t.x+t.baseW/2,cy=t.y+t.baseH/2;ctx.translate(cx,cy);ctx.rotate(t.rotation*Math.PI/180);ctx.scale(t.scale*t.flipX,t.scale*t.flipY);
+            ctx.drawImage(photo.img,-t.baseW/2,-t.baseH/2,t.baseW,t.baseH);ctx.restore();
+        }
+
+        function drawSticker(st) {
+            ctx.save();
+            ctx.translate(st.x, st.y);
+            ctx.rotate((st.rotation || 0) * Math.PI / 180);
+            if(st.type === 'emoji') {
+                ctx.font = `${st.size || 80}px sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(st.content, 0, 0);
+            } else if(st.type === 'image' && st.img && st.img.complete) {
+                const w = st.size || 80;
+                const h = w * (st.img.naturalHeight / st.img.naturalWidth);
+                ctx.drawImage(st.img, -w/2, -h/2, w, h);
+            }
+            if(st.id === selectedStickerId) {
+                ctx.strokeStyle = '#38bdf8';
+                ctx.lineWidth = 3;
+                ctx.strokeRect(-st.size/2 - 5, -st.size/2 - 5, st.size + 10, st.size + 10);
+            }
+            ctx.restore();
+        }
+
+        function drawCanvas() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#0b1524';ctx.fillRect(0,0,canvas.width,canvas.height);
+            if(photoQueue.length){
+                for(let i=photoQueue.length-1;i>=0;i--) drawPhoto(photoQueue[i],slotForPhoto(i));
+            } else {ctx.fillStyle='#9fb2c9';ctx.font='30px Arial';ctx.textAlign='center';ctx.fillText('Add a photo to begin',540,540);}
+            const drawTextLayer=t=>{ctx.save();ctx.globalAlpha=t.opacity??1;ctx.translate(t.x,t.y);ctx.rotate((t.rotation||0)*Math.PI/180);ctx.textAlign=t.align||'center';ctx.textBaseline='middle';ctx.fillStyle=t.color||'#fff';ctx.font=`${t.italic?'italic ':''}${t.bold?'700':'400'} ${t.size||54}px "${t.font||'Arial'}"`;ctx.shadowColor=t.shadow?'rgba(0,0,0,.65)':'transparent';ctx.shadowBlur=t.shadow?7:0;ctx.fillText(t.text||'',0,0);ctx.restore();};
+            textLayers.filter(t=>!t.aboveFrame).forEach(drawTextLayer);
+            if(frameImageLoaded&&frameImage.complete&&frameImage.naturalWidth)ctx.drawImage(frameImage,0,0,canvas.width,canvas.height);
+            textLayers.filter(t=>t.aboveFrame).forEach(drawTextLayer);
+            
+            // Draw Stickers Topmost
+            stickers.forEach(drawSticker);
+        }
+
+        // Stickers Management Functions
+        function addEmojiSticker(emoji) {
+            const st = { id: uid(), type: 'emoji', content: emoji, x: 540, y: 540, size: 80, rotation: 0 };
+            stickers.push(st);
+            selectedStickerId = st.id;
+            selectedTextId = null;
+            selectedPhotoId = null;
+            syncStickerControls();
+            drawCanvas();
+            saveSoon();
+            pushHistory();
+        }
+
+        function addImageSticker(file) {
+            if(!file || !file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                const im = new Image();
+                im.onload = () => {
+                    const st = { id: uid(), type: 'image', dataUrl: reader.result, img: im, x: 540, y: 540, size: 100, rotation: 0 };
+                    stickers.push(st);
+                    selectedStickerId = st.id;
+                    selectedTextId = null;
+                    selectedPhotoId = null;
+                    syncStickerControls();
+                    drawCanvas();
+                    saveSoon();
+                    pushHistory();
+                };
+                im.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function syncStickerControls() {
+            const sel = $('stickerSelect');
+            sel.innerHTML = '<option value="">Select active sticker</option>';
+            stickers.forEach((s, i) => {
+                const o = document.createElement('option');
+                o.value = s.id;
+                o.textContent = `Sticker ${i+1}: ${s.type === 'emoji' ? s.content : 'PNG Badge'}`;
+                sel.appendChild(o);
+            });
+            sel.value = selectedStickerId || '';
+            const st = stickers.find(s => s.id === selectedStickerId);
+            if(st) {
+                $('stickerSize').value = st.size || 80;
+                $('stickerRotate').value = st.rotation || 0;
+            }
+        }
+
+        function updateSelectedSticker(patch) {
+            const st = stickers.find(s => s.id === selectedStickerId);
+            if (!st) return;
+            Object.assign(st, patch);
+            syncStickerControls();
+            drawCanvas();
+            saveSoon();
+        }
+
+        function snapshot() {
+            return {
+                frame:currentFrame()?.path,selectedPhotoId,selectedSlotIndex,
+                photos:photoQueue.map(p=>({id:p.id,name:p.name,dataUrl:p.dataUrl,transform:{...p.transform}})),
+                texts:textLayers.map(t=>({...t})),selectedTextId,
+                stickers:stickers.map(s=>({id:s.id,type:s.type,content:s.content,dataUrl:s.dataUrl,x:s.x,y:s.y,size:s.size,rotation:s.rotation})),
+                selectedStickerId
+            };
+        }
+
+        function pushHistory(){const snap=snapshot();const encoded=JSON.stringify(snap);if(historyIndex>=0&&JSON.stringify(history[historyIndex])===encoded)return;history=history.slice(0,historyIndex+1);history.push(snap);if(history.length>30)history.shift();historyIndex=history.length-1;updateHistoryButtons();}
+        function updateHistoryButtons(){$('undoBtn').disabled=historyIndex<=0;$('redoBtn').disabled=historyIndex>=history.length-1;}
+
+        async function restoreSnapshot(snap){
+            if(!snap)return;const restored=[];
+            for(const p of snap.photos||[]){const im=new Image();await new Promise(res=>{im.onload=res;im.onerror=res;im.src=p.dataUrl;});if(im.naturalWidth)restored.push({...p,img:im});}
+            photoQueue=restored;textLayers=(snap.texts||[]).map(t=>({...t}));selectedPhotoId=snap.selectedPhotoId;selectedTextId=snap.selectedTextId;selectedSlotIndex=snap.selectedSlotIndex||0;
+            
+            // Restore Stickers
+            const restoredStickers = [];
+            for(const s of snap.stickers||[]) {
+                if(s.type === 'image') {
+                    const im = new Image();
+                    await new Promise(res => { im.onload = res; im.onerror = res; im.src = s.dataUrl; });
+                    restoredStickers.push({...s, img: im});
+                } else {
+                    restoredStickers.push({...s});
+                }
+            }
+            stickers = restoredStickers;
+            selectedStickerId = snap.selectedStickerId;
+
+            const fi=frames.findIndex(f=>f.path===snap.frame);if(fi>=0&&fi!==selectedFrameIndex){selectedFrameIndex=fi;renderTemplates();await loadFrame();}
+            renderQueue();updateSlotSelect();syncTextControls();syncStickerControls();syncAdjustments();drawCanvas();saveSoon();
+        }
+
+        function saveSoon(){clearTimeout(autosaveTimer);autosaveTimer=setTimeout(saveProject,500);}
+        function openDatabase(){return new Promise((resolve,reject)=>{const req=indexedDB.open('ppsc-photo-editor',1);req.onupgradeneeded=()=>req.result.createObjectStore('projects');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+        async function saveProject(){
+            try{const db=await openDatabase();const tx=db.transaction('projects','readwrite');tx.objectStore('projects').put(snapshot(),'last');tx.oncomplete=()=>{$('saveStatus').textContent='Autosaved locally in this browser.';db.close();};tx.onerror=()=>{ $('saveStatus').textContent='Autosave failed: browser storage may be full.';db.close();};}
+            catch(e){$('saveStatus').textContent='Autosave unavailable in this browser.';console.warn('Autosave:',e);}
+        }
+        async function restoreProject(){
+            try{const db=await openDatabase();const snap=await new Promise((resolve,reject)=>{const r=db.transaction('projects').objectStore('projects').get('last');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});db.close();if(snap)await restoreSnapshot(snap);}
+            catch(e){console.warn('Project restore skipped:',e);}
+        }
+
+        function syncTextControls(){const sel=$('textLayerSelect');sel.innerHTML='<option value="">Select text layer</option>';textLayers.forEach((t,i)=>{const o=document.createElement('option');o.value=t.id;o.textContent=`Text ${i+1}: ${t.text.slice(0,22)}`;sel.appendChild(o);});sel.value=selectedTextId||'';const t=textLayers.find(x=>x.id===selectedTextId);$('textValue').value=t?.text||'';$('textSize').value=t?.size||54;$('textColor').value=t?.color||'#ffffff';$('textFont').value=t?.font||'Noto Sans Bengali';$('textBold').classList.toggle('!bg-sky-700',!!t?.bold);$('textItalic').classList.toggle('!bg-sky-700',!!t?.italic);$('textAboveFrame').classList.toggle('!bg-sky-700',!!t?.aboveFrame);$('textAboveFrame').textContent=t?.aboveFrame?'Text above frame: On':'Text above frame: Off';$('textAboveFrame').setAttribute('aria-pressed',String(!!t?.aboveFrame));}
+        function updateSelectedText(patch){const t=textLayers.find(x=>x.id===selectedTextId);if(!t)return;Object.assign(t,patch);syncTextControls();drawCanvas();saveSoon();}
+        
+        function canvasPoint(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*canvas.width/r.width,y:(e.clientY-r.top)*canvas.height/r.height};}
+        
+        canvas.addEventListener('pointerdown',e=>{
+            const pt=canvasPoint(e);
+            
+            // Check Stickers First (Topmost)
+            const sticker = [...stickers].reverse().find(s => Math.abs(s.x - pt.x) < (s.size || 80)/2 && Math.abs(s.y - pt.y) < (s.size || 80)/2);
+            if(sticker) {
+                selectedStickerId = sticker.id;
+                selectedTextId = null;
+                selectedPhotoId = null;
+                dragState = { type: 'sticker', id: sticker.id, last: pt };
+                syncStickerControls();
+                drawCanvas();
+                canvas.setPointerCapture(e.pointerId);
+                return;
+            }
+
+            // Check Text Layers
+            const text=[...textLayers].reverse().find(t=>Math.abs(t.x-pt.x)<Math.max(40,(t.size||54)*3)&&Math.abs(t.y-pt.y)<(t.size||54)*1.2);
+            if(text){
+                selectedTextId=text.id;
+                selectedPhotoId=null;
+                selectedStickerId=null;
+                dragState={type:'text',id:text.id,last:pt};
+                syncTextControls();
+                syncStickerControls();
+                drawCanvas();
+            }
+            else if(activePhoto()||photoQueue.length){
+                const p=activePhoto()||photoQueue[0];
+                if(frameSlots().length===1||selectedSlotIndex<photoQueue.length){
+                    selectedPhotoId=p.id;
+                    selectedStickerId=null;
+                    dragState={type:'photo',id:p.id,last:pt};
+                    syncStickerControls();
+                }
+            }
+            if(dragState)canvas.setPointerCapture(e.pointerId);
+        });
+
+        canvas.addEventListener('pointermove',e=>{
+            if(!dragState)return;
+            const pt=canvasPoint(e),dx=pt.x-dragState.last.x,dy=pt.y-dragState.last.y;
+            dragState.last=pt;
+            if(dragState.type==='sticker'){const s=stickers.find(x=>x.id===dragState.id);if(s){s.x+=dx;s.y+=dy;}}
+            else if(dragState.type==='text'){const t=textLayers.find(x=>x.id===dragState.id);if(t){t.x+=dx;t.y+=dy;}}
+            else{const p=photoQueue.find(x=>x.id===dragState.id);if(p){p.transform.x+=dx;p.transform.y+=dy;}}
+            drawCanvas();
+        });
+
+        canvas.addEventListener('pointerup',()=>{if(dragState){dragState=null;saveSoon();pushHistory();}});
+        canvas.addEventListener('pointercancel',()=>{dragState=null;});
+
+        // Event Listeners for Stickers Panel
+        $('presetStickers').addEventListener('click', e => {
+            const btn = e.target.closest('button');
+            if(btn && btn.dataset.sticker) addEmojiSticker(btn.dataset.sticker);
+        });
+        $('stickerUploader').addEventListener('change', e => {
+            if(e.target.files[0]) addImageSticker(e.target.files[0]);
+            e.target.value = '';
+        });
+        $('stickerSelect').addEventListener('change', e => {
+            selectedStickerId = e.target.value || null;
+            syncStickerControls();
+            drawCanvas();
+        });
+        $('stickerSize').addEventListener('input', e => updateSelectedSticker({ size: Number(e.target.value) || 80 }));
+        $('stickerRotate').addEventListener('input', e => updateSelectedSticker({ rotation: Number(e.target.value) || 0 }));
+        $('stickerDelete').addEventListener('click', () => {
+            stickers = stickers.filter(s => s.id !== selectedStickerId);
+            selectedStickerId = null;
+            syncStickerControls();
+            drawCanvas();
+            saveSoon();
+            pushHistory();
+        });
+
+        $('imageLoader').addEventListener('change',e=>{Array.from(e.target.files||[]).forEach(f=>readPhotoFile(f));e.target.value='';});
+        $('dropZone').addEventListener('dragover',e=>{e.preventDefault();$('dropZone').classList.add('border-sky-400');});
+        $('dropZone').addEventListener('dragleave',()=>$('dropZone').classList.remove('border-sky-400'));
+        $('dropZone').addEventListener('drop',e=>{e.preventDefault();$('dropZone').classList.remove('border-sky-400');Array.from(e.dataTransfer.files||[]).forEach(f=>readPhotoFile(f));});
+        $('zoomRange').addEventListener('input',e=>{const p=activePhoto();if(!p)return;p.transform.scale=Number(e.target.value);$('zoomVal').textContent=p.transform.scale.toFixed(2)+'x';drawCanvas();saveSoon();});
+        $('rotateRange').addEventListener('input',e=>{const p=activePhoto();if(!p)return;p.transform.rotation=Number(e.target.value);$('rotateVal').textContent=p.transform.rotation+'°';drawCanvas();saveSoon();});
+        $('slotSelect').addEventListener('change',e=>{selectedSlotIndex=Number(e.target.value);if(frameSlots().length>1&&photoQueue[selectedSlotIndex])selectedPhotoId=photoQueue[selectedSlotIndex].id;renderQueue();syncAdjustments();drawCanvas();});
+        $('removeAllPhotos').addEventListener('click',()=>{if(!confirm('Remove all uploaded photos from this project?'))return;photoQueue=[];selectedPhotoId=null;renderQueue();drawCanvas();saveSoon();pushHistory();});
+        $('resetPhoto').addEventListener('click',()=>{const p=activePhoto();if(!p)return;fitPhoto(p,slotForPhoto(photoQueue.indexOf(p)));syncAdjustments();drawCanvas();saveSoon();pushHistory();});
+        $('flipH').addEventListener('click',()=>{const p=activePhoto();if(p){p.transform.flipX*=-1;drawCanvas();saveSoon();pushHistory();}});
+        $('flipV').addEventListener('click',()=>{const p=activePhoto();if(p){p.transform.flipY*=-1;drawCanvas();saveSoon();pushHistory();}});
+        $('addText').addEventListener('click',()=>{const t={id:uid(),text:'Your text here',x:540,y:540,size:54,color:'#ffffff',font:'Noto Sans Bengali',bold:true,italic:false,align:'center',opacity:1,shadow:true,aboveFrame:false};textLayers.push(t);selectedTextId=t.id;syncTextControls();drawCanvas();saveSoon();pushHistory();});
+        $('textLayerSelect').addEventListener('change',e=>{selectedTextId=e.target.value||null;syncTextControls();});
+        $('textValue').addEventListener('input',e=>updateSelectedText({text:e.target.value}));
+        $('textSize').addEventListener('input',e=>updateSelectedText({size:Math.max(12,Math.min(180,Number(e.target.value)||54))}));
+        $('textColor').addEventListener('input',e=>updateSelectedText({color:e.target.value}));
+        $('textFont').addEventListener('change',e=>updateSelectedText({font:e.target.value}));
+        $('textBold').addEventListener('click',()=>updateSelectedText({bold:!textLayers.find(t=>t.id===selectedTextId)?.bold}));
+        $('textItalic').addEventListener('click',()=>updateSelectedText({italic:!textLayers.find(t=>t.id===selectedTextId)?.italic}));
+        $('textAboveFrame').addEventListener('click',()=>{const t=textLayers.find(x=>x.id===selectedTextId);if(!t)return;t.aboveFrame=!t.aboveFrame;syncTextControls();drawCanvas();saveSoon();pushHistory();});
+        $('textDelete').addEventListener('click',()=>{textLayers=textLayers.filter(t=>t.id!==selectedTextId);selectedTextId=null;syncTextControls();drawCanvas();saveSoon();pushHistory();});
+        $('undoBtn').addEventListener('click',async()=>{if(historyIndex>0){historyIndex--;await restoreSnapshot(history[historyIndex]);updateHistoryButtons();}});
+        $('redoBtn').addEventListener('click',async()=>{if(historyIndex<history.length-1){historyIndex++;await restoreSnapshot(history[historyIndex]);updateHistoryButtons();}});
+        $('clearProject').addEventListener('click',async()=>{if(!confirm('Clear the current editing project and saved browser copy?'))return;photoQueue=[];textLayers=[];stickers=[];selectedPhotoId=null;selectedTextId=null;selectedStickerId=null;renderQueue();syncTextControls();syncStickerControls();drawCanvas();try{const db=await openDatabase();db.transaction('projects','readwrite').objectStore('projects').delete('last');}catch(e){}pushHistory();});
+        
+        async function exportImage(type){
+            if(!photoQueue.length){setStatus('Add at least one photo before exporting.',true);return;}
+            if(!frameImageLoaded){setStatus('The selected frame is still loading.',true);return;}
+            if(document.fonts?.ready) await document.fonts.ready;
+            
+            // Unselect active sticker before drawing final export frame
+            const activeStickerBak = selectedStickerId;
+            selectedStickerId = null;
+            drawCanvas();
+
+            const mime=type==='jpg'?'image/jpeg':'image/png';
+            try{
+                const blob=await new Promise((res,rej)=>canvas.toBlob(b=>b?res(b):rej(new Error('Canvas export failed')),mime,type==='jpg'?.94:undefined));
+                const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`ppsc-photo-composition.${type==='jpg'?'jpg':'png'}`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);setStatus(`${type.toUpperCase()} export started.`);
+            }catch(err){console.error(err);setStatus('Export failed. Check that all frame assets are hosted with this project.',true);}
+            finally {
+                selectedStickerId = activeStickerBak;
+                drawCanvas();
+            }
+        }
+
+        $('downloadBtn').addEventListener('click',()=>exportImage('png'));
+        $('downloadJpgBtn').addEventListener('click',()=>exportImage('jpg'));
+
+        // Background & Developer Music System Setup
+        window.addEventListener('DOMContentLoaded', async () => {
+            renderTemplates(); renderTeachers(); renderQueue(); syncTextControls(); syncStickerControls(); applyEditorLanguage(); loadFrame();
+            await refreshProjectFrameLibrary(true);
+            await restoreProject(); pushHistory();
+            if(location.hostname==='127.0.0.1'||location.hostname==='localhost')setInterval(()=>refreshProjectFrameLibrary(true),3000);
+
+            const bgMusic = document.getElementById('bgMusic');
+            const devMusic = document.getElementById('devMusic');
+            bgMusic.volume = 0.6;
+            devMusic.volume = 0.6;
+
+            const playlist = ['audio/bg-music.mp3'];
+            let currentTrack = 0;
+
+            function playBgTrack(index) {
+                if (playlist.length === 0) return;
+                bgMusic.src = playlist[index];
+                bgMusic.play().catch(e => console.log("Autoplay waiting for user interaction:", e));
+            }
+
+            bgMusic.addEventListener('ended', () => {
+                currentTrack = (currentTrack + 1) % playlist.length;
+                playBgTrack(currentTrack);
+            });
+
+            // Developer music source
+            devMusic.src = 'audio/dev-music.mp3';
+
+            const startAudio = () => {
+                if (bgMusic.paused && devMusic.paused) {
+                    playBgTrack(currentTrack);
+                    bgMusic.dataset.wasPlaying = "true";
+                }
+                window.removeEventListener('click', startAudio);
+                window.removeEventListener('keydown', startAudio);
+                window.removeEventListener('touchstart', startAudio);
+            };
+
+            window.addEventListener('click', startAudio);
+            window.addEventListener('keydown', startAudio);
+            window.addEventListener('touchstart', startAudio);
+        });
+    </script>
+</body>
+</html>

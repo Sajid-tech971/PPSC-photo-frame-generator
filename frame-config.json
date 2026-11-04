@@ -1,0 +1,17 @@
+{
+  "frames": [
+    {
+      "filename": "Pabna Pilot School Cultural Evening Poster.png",
+      "photoSlots": [
+        {
+          "id": "photo-opening",
+          "x": 75,
+          "y": 209,
+          "width": 490,
+          "height": 528
+        }
+      ]
+    }
+  ],
+  "_documentation": "Coordinates are in the 1080x1080 editor canvas. Add one photoSlots entry per photo opening. If omitted, the editor uses one full-canvas slot."
+}
